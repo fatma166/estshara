@@ -1,0 +1,25 @@
+.navbar-custom {
+    background-color: #0281ff;
+}
+body,h1,h2,h3,h4,h5,h6,a,span,li,span{
+    font-family: 'Noto Kufi Arabic', sans-serif;
+}
+.ld-dawam label{color:#fff;margin-left: 20px;}
+.ld-dawam{margin-top: 20px;}
+.logo-box img{
+    width: 70px;
+    height: 40px;
+}
+.btn-danger {
+    color: #fff;
+    background-color: #0281ff;
+    border-color: #0281ff;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #0281ff;
+    border-color: #0281ff;
+}
+.form-control{text-align: right;}
+.guide-banner img{width: 100%;border-radius: 10px;margin-bottom: 20px;}
+div.hopscotch-bubble h3,div.hopscotch-bubble .hopscotch-content{font-family: 'cairo'!important;}
