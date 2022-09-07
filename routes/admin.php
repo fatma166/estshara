@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Admin\AuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,26 +12,29 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('welcome', function () {
+    return view('welcome');
+})->name("users.login.form");
 
+Route::group(['namespace' =>'Admin'], function() {
 
-Route::group(['namespace' =>'Admin','prefix' =>'admin'], function() {
     Route::get('register', function () {
+      
         return view('admin.auth.register');
     });
-    Route::get('login', function () {
-        return view('admin.auth.login');
-    })->name('login');
+    
+    Route::get('login','AuthController@login')->name('login');
     Route::post('postLogin', 'AuthController@postLogin')->name('postLogin');
 
-    route::middleware('auth')->group(function(){
+    route::middleware('auth:admin')->group(function(){
 
 
     Route::get('/', function () {
         return view('admin.index');
-    });
+    })->name('index');
 
 
-    Route::middleware('auth')->group(function(){
+    Route::middleware('auth:admin')->group(function(){
             Route::prefix('doctors')->group(function () {
                 Route::get('doctor-list', function () {
                     return view('admin.doctors.doctors');

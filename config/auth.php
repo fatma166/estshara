@@ -43,7 +43,7 @@ return [
         'admin' => [
             'driver' => 'session',
             'provider' => 'admin',
-        ],
+        ],/*
         'pharmcy' => [
             'driver' => 'session',
             'provider' => 'users',
@@ -55,7 +55,7 @@ return [
         'scanCenter' => [
             'driver' => 'session',
             'provider' => 'users',
-        ],
+        ],*/
         'api' => [
             'driver' => 'jwt',
             'provider' => 'users',
@@ -119,7 +119,7 @@ return [
             'throttle' => 60,
         ],
         'admin'=>[
-            'provider' => 'users',
+            'provider' => 'admin',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

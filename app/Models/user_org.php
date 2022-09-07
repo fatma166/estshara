@@ -60,13 +60,13 @@ class User extends Authenticatable implements JWTSubject
 	use SoftDeletes;
 	protected $table = 'users';
 
-	/*protected $casts = [
+	protected $casts = [
 		'role_id' => 'int',
 		'city_id' => 'int',
 		'email_isverified' => 'bool',
 		'phone_isverified' => 'bool',
 		'active' => 'bool'
-	];*/
+	];
 
 	protected $dates = [
 		'birth_date',

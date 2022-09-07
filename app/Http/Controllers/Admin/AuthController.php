@@ -10,6 +10,7 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
+  
     //
     public function register($subdomain) {
 
@@ -21,20 +22,22 @@ class AuthController extends Controller
 
     }
     public function login(Request $request){
+       
         return view('admin.auth.login');
     }
     public function postLogin(LoginRequest $request)
     {
-
+       
+      
         $validated= $request->validated();
 
-        if (Auth::guard('admin')->attempt($validated)) {
-            return redirect()->route('/');
+
+       if(Auth::guard('admin')->attempt($validated)) {
+            return redirect()->route('index');
         }
-        echo"error";
-        exit;
-        // return redirect()->back()->with('error', __('trans.invalid email or password.'));
-        return redirect()->route('login')->with('error', __('trans.invalid email or password.'));
+   
+        
+        return redirect()->route('admin.auth.login')->with('error', __('trans.invalid email or password.'));
 
 
     }

@@ -13,8 +13,10 @@
 |
 */
 
-require("admin.php");
-
+//require("admin.php");
+Route::get('login', function () {
+    return view('welcome');
+})->name("users.login.form'");
 
 /*
 Route::get('register', function () {
