@@ -14,6 +14,17 @@ class IntroCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+       
+       if(empty($request->all()))
+        return [];
+
+       return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'img' => $this->img,
+            'description' => $this->description,
+            
+        ];
+       // return parent::toArray($request);
     }
 }

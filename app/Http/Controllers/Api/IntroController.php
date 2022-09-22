@@ -13,6 +13,7 @@ class IntroController extends Controller
 {
 
     public function getIntro(IntroRequest $request){
+       
         $validated=$request->validated();
         try{
         $obj=new IntroRepository();
