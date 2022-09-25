@@ -17,7 +17,13 @@ class IntroController extends Controller
         $validated=$request->validated();
         try{
         $obj=new IntroRepository();
-        $result=$obj->getIntro();
+      $result=$obj->getIntro();
+      return response()->json([
+        'status' => 'success',
+        'data' =>$result,
+
+         ],200);
+          
         }catch (Exception $error) {
             return new Response(
                 [

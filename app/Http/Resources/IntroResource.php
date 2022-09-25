@@ -1,9 +1,6 @@
 <?php
-
 namespace App\Http\Resources;
-
 use Illuminate\Http\Resources\Json\JsonResource;
-
 class IntroResource extends JsonResource
 {
     /**
@@ -14,6 +11,16 @@ class IntroResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+
+       // return(['ff'=>"jkjk"]);
+       
+               // return parent::toArray($request);
+       return [
+        'id' => $this->id,
+        'img' => $this->img,
+        'title' => $this->title,
+        //'description' => $this->description,
+        
+       ];
     }
 }

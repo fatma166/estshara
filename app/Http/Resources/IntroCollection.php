@@ -15,7 +15,7 @@ class IntroCollection extends ResourceCollection
     public function toArray($request)
     {
        
-       if(empty($request->all()))
+      /* if(empty($request->all()))
         return [];
 
        return [
@@ -24,7 +24,7 @@ class IntroCollection extends ResourceCollection
             'img' => $this->img,
             'description' => $this->description,
             
-        ];
-       // return parent::toArray($request);
+        ];*/
+       return parent::toArray($request);
     }
 }
