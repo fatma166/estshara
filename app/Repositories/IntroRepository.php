@@ -9,7 +9,13 @@ use App\Http\Resources\IntroResource;
 class IntroRepository implements IntroInterface{
 
 
-    public function getIntro() {
+    public function getIntro($id) {
+        if($id){
+            $result=Intro::find($id);
+       
+            return   new IntroResource($result);
+                 
+        }
        $result=Intro::all();
        
      return  IntroResource::collection($result);

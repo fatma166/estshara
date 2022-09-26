@@ -12,17 +12,17 @@ use Illuminate\Http\Response;
 class IntroController extends Controller
 {
 
-    public function getIntro(IntroRequest $request){
+    public function getIntro(IntroRequest $request,$id=NULL){
        
         $validated=$request->validated();
         try{
-        $obj=new IntroRepository();
-      $result=$obj->getIntro();
-      return response()->json([
-        'status' => 'success',
-        'data' =>$result,
+            $obj=new IntroRepository();
+            $result=$obj->getIntro($id);
+            return response()->json([
+                'status' => 'success',
+                'data' =>$result,
 
-         ],200);
+                ],200);
           
         }catch (Exception $error) {
             return new Response(

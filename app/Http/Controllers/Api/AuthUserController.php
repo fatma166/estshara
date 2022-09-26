@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\Api\AuthUserRequest;
-//use App\Http\Requests\Api\RegisterRequest;
+use App\Http\Requests\Api\RegisterRequest;
 //use App\Http\Resources\UserCollection;
 use Validator;
 use Illuminate\Support\Facades\DB;
@@ -43,11 +43,10 @@ class AuthUserController extends Controller
         ],200);
 
     }
+public function register(RegisterRequest $request) {
 
-    public function register(RegisterRequest $request) {
-
-
-
+print_r($request->all());
+echo"hjk"; exit;
         $validated = $request->validated();
 
             $user= User::create($validated);
@@ -78,6 +77,15 @@ class AuthUserController extends Controller
             'data' => Auth::user(),
             'token' => Auth::refresh(),
 
+            ],200);
+    }
+
+    public function get_roles(){
+      
+        $data=Role::all();
+        return response()->json([
+            'status' => 'success',
+            'data' => $data,
             ],200);
     }
 

@@ -27,7 +27,7 @@ class AuthUserRequest extends FormRequest
     {
 
         return [
-            'email'=>'required',
+            'phone'=>'required',
             'password'=>'required|min:6'
         ];
     }
