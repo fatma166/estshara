@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Foundation\Http\Exceptions\HttpResponseExeption;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 class AuthUserRequest extends FormRequest
 {
@@ -27,7 +27,7 @@ class AuthUserRequest extends FormRequest
     {
 
         return [
-            'phone'=>'required',
+            'email'=>'required',
             'password'=>'required|min:6'
         ];
     }

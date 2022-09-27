@@ -11,10 +11,10 @@ class RegisterRequest extends FormRequest
      *
      * @return bool
      */
-  /*  public function authorize()
+    public function authorize()
     {
         return true;
-    }*/
+    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -23,13 +23,16 @@ class RegisterRequest extends FormRequest
      */
     public function rules()
     {
-       
+      
         return [
             'name' => 'required|min:4',
             'last_name' => 'required|min:4',
             'phone' => 'required|unique|min:5',
             'password' => 'required|min:6',
             'birth_date' => 'required|date',
+            'role_id'   => 'required'
+          
+           
         ];
         
     }
