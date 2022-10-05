@@ -5,28 +5,34 @@
   abstract class HTTPResponseCodes
   {
       const Sucess = [
-          "title" => "success",
+          "status" => "success",
           "code" => 200,
           "message" => "Request has been successfully processed."
       ];
 
       const NotFound = [
-          "title" => "not_found_error",
+          "status" => "not_found_error",
           "code" => 404,
           "message" => "Could not locate resource."
       ];
 
       const InvalidArguments = [
-          "title" => "invalid_arguments_error",
+          "status" => "invalid_arguments_error",
           "code" => 404,
           "message" => "Invalid arguments. Server failed to process your request."
       ];
 
       const BadRequest = [
-          "title" => "bad_request",
+          "status" => "bad_request",
           "code" => 400,
           "message" => "Server failed to process your request."
       ];
+      const UnAuth= [
+       
+        "status" => "Unauthorized",
+        "code" => 401,
+        "message" => "Unauthorized to process your request."
+    ];
 
   }
       

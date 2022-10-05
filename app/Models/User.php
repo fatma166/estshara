@@ -11,11 +11,13 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+use Illuminate\Support\Facades\Session;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 //use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
+
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
+use Twilio\Rest\Client;
 /**
  * Class User
  *
@@ -164,6 +166,32 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
     return [];
-}
+    }
+	public function sendToken()
+	{
+		
+		$token = mt_rand(100000, 999999);
+		Session::put('token', $token);
+		$twilio= new Client($_ENV['TWILIO_SID'], $_ENV['TWILIO_AUTH_TOKEN']);
+		
+
+             $message = $twilio->messages
+                  ->create($this->phone, // to
+                           ["body" => "Your auth token is " . $token, "from" => "+19893737698"]
+                  );
+	
+
+	}
+	public function validateToken($token)
+	{
+	  $validToken = Session::get('token');
+	  if($token == $validToken) {
+		Session::forget('token');
+		//Auth::login($this);
+		return true;
+	  } else {
+		return false;
+	  }
+	}
 
 }
