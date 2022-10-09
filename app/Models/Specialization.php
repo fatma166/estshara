@@ -43,7 +43,7 @@ class Specialization extends Model
 
 	public function consulations()
 	{
-		return $this->hasMany(Consulation::class, 'spacialization_id');
+		return $this->hasMany(Consulation::class,'spacialization_id');
 	}
 
 	public function doctor_detail()

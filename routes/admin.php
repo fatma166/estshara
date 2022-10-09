@@ -23,8 +23,8 @@ Route::group(['namespace' =>'Admin'], function() {
         return view('admin.auth.register');
     });
     
-    Route::get('login','AuthController@login')->name('login');
-    Route::post('postLogin', 'AuthController@postLogin')->name('postLogin');
+    Route::get('login','AuthController@login')->name('login');//admin.auth.login
+    Route::post('postLogin','AuthController@postLogin')->name('postLogin');
 
     route::middleware('auth:admin')->group(function(){
 

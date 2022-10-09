@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::namespace('Api')->group (function() {
-    route::get('get-intro/{id?}','IntroController@getIntro')->name('intro');
+    route::get('get-intro/{id?}','IntroController@getIntro')->name('intro')->withoutMiddleware([auth::class,'auth_api']);;
 });
 
 
