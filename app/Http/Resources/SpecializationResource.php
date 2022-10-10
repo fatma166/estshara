@@ -3,7 +3,9 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use App\Http\Resources\ConsulationResource;
+use App\Http\Resources\UserCollection;
+use App\Http\Resources\ServiceTypeFeeResource;
 class SpecializationResource extends JsonResource
 {
     /**
@@ -17,18 +19,14 @@ class SpecializationResource extends JsonResource
         //return parent::toArray($request);
         return[
                 'id'=> $this->id,
-                'specialization_id'=>$this->specialization_id ,
-                'name'=>$this->name,
-                'locale'=>$this->locale,
-                'consultation_key'=>$this->consultation_key,
-                'status'=>$this->status,
-                'patient_id'=>$this->patient_id,
-                'doctor_id'=>$this->doctor_id,
-                'service_type_id'=>$this->service_type_id,
-                'date'=>$this->date,
-                'end_date'=>$this->end_date,
-                'service_type_id'=>$this->service_type_id,
-                //'service_type_id'=>$this->,
+                'img'=>$this->img,
+                'code'=>$this->code,
+                'name'=>$this->specialization_translations[0]['name'],
+                'service_fees'=> new ServiceTypeFeeResource($this->consulations[0]['service_type']['service_type_fees'][0]),
+                'doctor_data'=> new UserResource($this->consulations[0]['user']),
+                'consulations'=>ConsulationResource::collection($this->consulations),
+                
+                
 
 
         ];

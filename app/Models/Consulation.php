@@ -73,7 +73,7 @@ class Consulation extends Model
 
 	public function user()
 	{
-		return $this->belongsTo(User::class, 'patient_id');
+		return $this->belongsTo(User::class,'doctor_id');
 	}
 
 	public function service_type()

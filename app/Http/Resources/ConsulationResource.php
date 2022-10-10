@@ -14,13 +14,18 @@ class ConsulationResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+       // return parent::toArray($request);
 
-       /*return([
-                'id'=>,
-                'doctor_id'=>,
-                'patient_id'=>,
-                ''
-       ]);*/
+       return([
+                'id'=>$this->id,
+                'doctor_id'=>$this->doctor_id,
+                'patient_id'=>$this->patient_id,
+                'status'=>$this->status,
+                'doctor_id'=>$this->doctor_id,
+                'spacialization_id'=>$this->spacialization_id,
+                'service_type_id'=>$this->service_type_id,
+                'date'=>$this->date,
+                'end_date'=>$this->end_date
+       ]);
     }
 }
