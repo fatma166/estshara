@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Route;
         
         route::get('list/{status?}/{start?}/{end?}/{id?}','ConsulationController@list_Consultation');
         
-
+        route::get('cancle/{id}','ConsulationController@cancle_consultation');
+        route::get('invoice/{id}','ConsulationController@get_invoice');
     });
        
     

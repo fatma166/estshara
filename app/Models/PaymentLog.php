@@ -52,4 +52,7 @@ class PaymentLog extends Model
 	{
 		return $this->hasOne(PaymentOrder::class, 'transaction_id', 'transaction_id');
 	}
+	public function payment_method(){
+		return $this->hasOne(PaymentOrder::class, 'method_id', 'id');
+	}
 }
