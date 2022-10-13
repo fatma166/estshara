@@ -75,7 +75,7 @@ class Provider extends Model
 
 	public function docotor_hospital()
 	{
-		return $this->hasOne(DocotorHospital::class, 'hospital_id');
+		return $this->hasOne(DocotorHospital::class,'hospital_id');
 	}
 
 	public function provider_translations()

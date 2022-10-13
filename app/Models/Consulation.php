@@ -100,4 +100,8 @@ class Consulation extends Model
 	{
 		return $this->hasOne(PaymentConsulation::class, 'consaltation_id');
 	}
+	public function consaltaion_services()
+	{
+		return $this->hasMany(Consaltaion_service::class,'service_id');
+	}
 }

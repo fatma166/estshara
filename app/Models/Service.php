@@ -76,4 +76,8 @@ class Service extends Model
 	{
 		return $this->hasMany(ServiceTranslation::class);
 	}
+	public function services_consalt()
+	{
+		return $this->hasMany(Consaltaion_service::class,'service_id');
+	}
 }

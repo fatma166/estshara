@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
         
         route::get('cancle/{id}','ConsulationController@cancle_consultation');
         route::get('invoice/{id}','ConsulationController@get_invoice');
+        route::get('details/{id}','ConsulationController@details_consultation');
     });
        
     

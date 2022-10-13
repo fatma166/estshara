@@ -49,5 +49,25 @@ class ConsulationController extends Controller
        
         $consaltation=new ConsulationRepositories();
         $data=$consaltation->get_invoice($id);
+        
+        return response()->json([
+         'status' =>HTTPResponseCodes::Sucess['status'],
+         'data' =>$data,
+         'message'=> HTTPResponseCodes::Sucess['message'],
+        
+ 
+        ],HTTPResponseCodes::Sucess['code']);
+     }
+     function details_consultation($id){
+      
+          $consaltation=new ConsulationRepositories();
+          $data=$consaltation->details_consultation($id);
+          return response()->json([
+            'status' =>HTTPResponseCodes::Sucess['status'],
+            'data' =>$data,
+            'message'=> HTTPResponseCodes::Sucess['message'],
+           
+    
+           ],HTTPResponseCodes::Sucess['code']);
      }
 }

@@ -2,12 +2,16 @@
 namespace App\Repositories;
 use App\Interfaces\ConsulationInterface;
 use App\Models\Consulation;
+use App\Models\Consaltaion_service;
+use App\Models\PaymentMethod;
 use App\Models\Specialization;
 use Illuminate\Http\Response;
 
 use App\Http\Resources\ConsulationResource;
 use App\Http\Resources\SpecializationResource;
-
+use App\Http\Resources\ServiceTypeFeeResource;
+use App\Http\Resources\PaymentOrderResource;
+use App\Http\Resources\PaymentMethodTransalationResource;
 class ConsulationRepositories implements ConsulationInterface{
 
     public function list_consultation($status,$start,$end,$id){
@@ -58,15 +62,36 @@ class ConsulationRepositories implements ConsulationInterface{
             return true;
     }
     public function get_invoice($id){
-      $invoice=Consulation::with(['payment_consulation.payment_log' => function ($query) use ($id) {
-       
-            // $query->with('payment_method_transalations');
-              }])->find($id);
-        $method1=$invoice->payment_method;
-        print_r($method1); exit;
-       $method2= $method1->payment_method_transalations->toArray();
+	
+          $invoice=Consulation::with(['payment_consulation.payment_log.payment_method' => function ($query) use ($id) {
+          
+               // $query;
+                  }])->find($id);
+                 // print_r($invoice); exit;
+          $payment_consulation=$invoice->payment_consulation;
+          $service_type= $invoice->service_type;
+          $service_type_fees=$service_type->service_type_fees->first();
+          $payment_log=$payment_consulation->payment_log;
+          $payment_order=$payment_log->payment_order;
+          $payment_method= $payment_log->payment_method->first();
+          $payment_method_transalations=$payment_method->payment_method_transalations;
+         // print_r($mm);exit;
+
+                return(['service_type_fees'=>json_decode(json_encode(new ServiceTypeFeeResource($service_type_fees))),'payment_order'=>json_decode(json_encode(new PaymentOrderResource($payment_order))),'payment_method_transalations'=>json_decode(json_encode(new  PaymentMethodTransalationResource($payment_method_transalations)))]);
+
+           
              
-$invoice=$invoice->payment_method_transalations;
-      print_r($invoice); exit;
+
+    }
+    public function details_consultation($id){
+	
+        $data=Consaltaion_service::with(['services'/*=>function($query) use($id){
+
+      
+                  $query;
+
+          }*/])->where('consulation_id',$id)->get()->toArray();
+
+        return($data);
     }
 }
