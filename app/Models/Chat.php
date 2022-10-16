@@ -43,4 +43,9 @@ class Chat extends Model
 		'status',
 		'consalt_id'
 	];
+	public function consalts()
+	{
+		return $this->belongsTo(consulation::class);
+	}
+
 }

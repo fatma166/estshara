@@ -8,6 +8,8 @@ interface ConsulationInterface
     public function cancle_consultation($id); 
     public function get_invoice($id); 
     public function details_consultation($id);
+    public function chat_consultation($id,$type);
+    public function send_Message();
    
 
 }

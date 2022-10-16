@@ -70,4 +70,22 @@ class ConsulationController extends Controller
     
            ],HTTPResponseCodes::Sucess['code']);
      }
+     public function chat_consultation($id,$type="reg"){
+
+    
+      $consaltation=new ConsulationRepositories();
+      $data=$consaltation->chat_consultation($id,$type);
+      return response()->json([
+        'status' =>HTTPResponseCodes::Sucess['status'],
+        'data' =>$data,
+        'message'=> HTTPResponseCodes::Sucess['message'],
+       
+
+       ],HTTPResponseCodes::Sucess['code']);
+
+      }
+      public function send_message(Request $request){
+
+      
+     }
 }

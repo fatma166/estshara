@@ -104,4 +104,10 @@ class Consulation extends Model
 	{
 		return $this->hasMany(Consaltaion_service::class,'service_id');
 	}
+
+	public function chats()
+	{
+		return $this->hasMany(Chat::class,'consalt_id');
+	}
+
 }

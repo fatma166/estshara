@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Route;
         route::get('cancle/{id}','ConsulationController@cancle_consultation');
         route::get('invoice/{id}','ConsulationController@get_invoice');
         route::get('details/{id}','ConsulationController@details_consultation');
+        route::get('chats/{id}/{type?}','ConsulationController@chat_consultation');
+        route::post('send-message','ConsulationController@send_message');
     });
        
     

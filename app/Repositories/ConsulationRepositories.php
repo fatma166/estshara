@@ -12,6 +12,9 @@ use App\Http\Resources\SpecializationResource;
 use App\Http\Resources\ServiceTypeFeeResource;
 use App\Http\Resources\PaymentOrderResource;
 use App\Http\Resources\PaymentMethodTransalationResource;
+use App\Http\Resources\ConsaltationDetailsResource;
+use App\Http\Resources\ChatConsaltationResource;
+
 class ConsulationRepositories implements ConsulationInterface{
 
     public function list_consultation($status,$start,$end,$id){
@@ -90,8 +93,22 @@ class ConsulationRepositories implements ConsulationInterface{
       
                   $query;
 
-          }*/])->where('consulation_id',$id)->get()->toArray();
+          }*/])->where('consulation_id',$id)->get();
+          return( ConsaltationDetailsResource::collection($data));
 
-        return($data);
+       
+    }
+    public function chat_consultation($id,$type){
+      $data=Consulation::with(['chats'=>function($query) use($type,$id){
+
+      
+        $query->where('consalt_id',$id)->where('type','note');
+
+        }])->first();
+     
+        return( new ChatConsaltationResource($data));
+    }
+    public function send_message($data){
+      
     }
 }
