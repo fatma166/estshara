@@ -99,16 +99,16 @@ class ConsulationRepositories implements ConsulationInterface{
        
     }
     public function chat_consultation($id,$type){
-      $data=Consulation::with(['chats'=>function($query) use($type,$id){
-
+        $data=Consulation::with(['chats'=>function($query) use($type,$id){
+                          $query->where('consalt_id',$id)->where('type','note');
+                          $query->with('chat_from')->with('chat_to');
+                          }])->get();
       
-        $query->where('consalt_id',$id)->where('type','note');
-
-        }])->first();
-     
-        return( new ChatConsaltationResource($data));
+      // $from=$data->with('chats.chat_from')->get(); 
+    //  $to=$data->with('chats.chat_to')->get();
+        return(ChatConsaltationResource::collection($data));
     }
     public function send_message($data){
-      
+        
     }
 }

@@ -5,9 +5,12 @@ use  App\Repositories\ConsulationRepositories;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Modules\Core\HTTPResponseCodes;
+use App\Http\Traits\UploadAttachTrait;
+use Illuminate\Support\Facades\Auth;
 class ConsulationController extends Controller
 {
     //
+    use UploadAttachTrait;
 
     public function list_consultation($status='all',$start=0,$end=5,$id=null){
        
@@ -85,7 +88,17 @@ class ConsulationController extends Controller
 
       }
       public function send_message(Request $request){
+        
+         $input=$request->all();
 
+        $data['message']= $input['message'];
+        $data['from']=Auth::guard('api')->user()->id;
+        $data['to']=$input['to'];
+        $data['attach']=$input['attach'];
+        $data['consalt_id']=$input['consalt_id'];
+       
+        if(!empty($data['attach']))
+         $this->Upload($input);
       
      }
 }

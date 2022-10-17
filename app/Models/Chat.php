@@ -47,5 +47,11 @@ class Chat extends Model
 	{
 		return $this->belongsTo(consulation::class);
 	}
+	public function chat_from(){
+		return $this->belongsTo(User::class,'from_id','id');
+	}
+	public function chat_to(){
+		return $this->belongsTo(User::class,'to_id','id');
+	}
 
 }

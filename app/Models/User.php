@@ -194,4 +194,14 @@ class User extends Authenticatable implements JWTSubject
 	  }
 	}
 
+	public function user_from(){
+		return $this->hasMany(Chat::class,'from_id');
+	
+	}
+
+	public function user_to(){
+		return $this->hasMany(Chat::class,'to_id');
+	
+	}
+
 }
