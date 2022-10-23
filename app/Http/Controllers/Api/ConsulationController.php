@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Modules\Core\HTTPResponseCodes;
 use App\Http\Traits\UploadAttachTrait;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Chat;
+use App\Models\ChatAttachement;
 class ConsulationController extends Controller
 {
     //
@@ -90,6 +92,7 @@ class ConsulationController extends Controller
       public function send_message(Request $request){
         
          $input=$request->all();
+        // 'user_sharing_image.*' => 'mimes:doc,pdf,docx,zip' for  validation
 
         $data['message']= $input['message'];
         $data['from']=Auth::guard('api')->user()->id;
@@ -98,7 +101,25 @@ class ConsulationController extends Controller
         $data['consalt_id']=$input['consalt_id'];
        
         if(!empty($data['attach']))
-         $this->Upload($input);
-      
+         $images=$this->Upload($request,'chat');
+         
+         if($images!=false)
+         
+        
+                $chat=Chat::create(array('consalt_id'=>$data['consalt_id'],'message'=>$data['message'],'from_id'=>$data['from'],'to_id'=>$data['to']));
+                foreach ($images as $image) {
+                    $filename = $image;
+                    ChatAttachement::create([
+                    'chat_id' => $chat->id,
+                    'path' => $filename
+                    ]);
+                }
+                return response()->json([
+                  'status' =>HTTPResponseCodes::Sucess['status'],
+                  'data' =>[],
+                  'message'=> HTTPResponseCodes::Sucess['message'],
+                 
+          
+                 ],HTTPResponseCodes::Sucess['code']);
      }
 }
