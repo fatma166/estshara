@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 13, 2022 at 03:54 PM
+-- Generation Time: Oct 31, 2022 at 02:49 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -136,7 +136,8 @@ CREATE TABLE `chats` (
   `message` text NOT NULL,
   `from_id` int(11) NOT NULL,
   `to_id` int(11) NOT NULL,
-  `status` tinyint(2) NOT NULL,
+  `status` tinyint(2) NOT NULL DEFAULT 1,
+  `type` enum('reg','note','all') NOT NULL DEFAULT 'all',
   `consalt_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -146,8 +147,13 @@ CREATE TABLE `chats` (
 -- Dumping data for table `chats`
 --
 
-INSERT INTO `chats` (`id`, `message`, `from_id`, `to_id`, `status`, `consalt_id`, `created_at`, `updated_at`) VALUES
-(1, 'gfdgfdgdfgdf', 2, 3, 1, 4, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `chats` (`id`, `message`, `from_id`, `to_id`, `status`, `type`, `consalt_id`, `created_at`, `updated_at`) VALUES
+(1, 'gfdgfdgdfgdf', 2, 3, 1, '', 4, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'اخذ لبدواء بابنتظام', 2, 3, 1, 'note', 4, '2022-10-16 12:19:05', '2022-10-16 12:19:05'),
+(3, 'اخذ لبدواء بابنتظامfff', 2, 3, 1, 'note', 4, '2022-10-16 12:19:05', '2022-10-16 12:19:05'),
+(4, 'رساله 1', 6, 2, 1, 'all', 4, '2022-10-19 09:39:22', '2022-10-19 09:39:22'),
+(5, 'رساله 1', 6, 2, 1, 'all', 4, '2022-10-19 09:44:07', '2022-10-19 09:44:07'),
+(6, 'رساله 1', 6, 2, 1, 'all', 4, '2022-10-19 09:44:55', '2022-10-19 09:44:55');
 
 -- --------------------------------------------------------
 
@@ -160,6 +166,17 @@ CREATE TABLE `chat_attachements` (
   `chat_id` int(11) NOT NULL,
   `path` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `chat_attachements`
+--
+
+INSERT INTO `chat_attachements` (`id`, `chat_id`, `path`) VALUES
+(1, 4, 'D:\\fatma_ex\\estshara1\\public/images/chat\\1666179562.PNG'),
+(2, 5, 'D:\\fatma_ex\\estshara1\\public/images/chat\\1666179847.PNG'),
+(3, 5, 'D:\\fatma_ex\\estshara1\\public/images/chat\\1666179847.PNG'),
+(4, 6, 'D:\\fatma_ex\\estshara1\\public/images/chat\\1666179895.PNG'),
+(5, 6, 'D:\\fatma_ex\\estshara1\\public/images/chat\\1666179895.PNG');
 
 -- --------------------------------------------------------
 
@@ -202,10 +219,19 @@ CREATE TABLE `comments` (
   `id` int(11) NOT NULL,
   `consalt_id` int(11) NOT NULL,
   `patient_id` int(11) NOT NULL,
+  `doctor_id` int(11) NOT NULL,
   `grade` int(11) NOT NULL,
   `created_at` int(11) NOT NULL,
   `deleted_at` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`id`, `consalt_id`, `patient_id`, `doctor_id`, `grade`, `created_at`, `deleted_at`) VALUES
+(1, 4, 3, 2, 3, 0, 0),
+(2, 6, 6, 2, 4, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -367,8 +393,16 @@ CREATE TABLE `doctor_details` (
   `national_id` int(11) NOT NULL,
   `city_id` int(11) NOT NULL,
   `appoint_id` int(11) NOT NULL,
-  `experience_years` int(11) NOT NULL
+  `experience_years` int(11) NOT NULL,
+  `provider_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `doctor_details`
+--
+
+INSERT INTO `doctor_details` (`doctor_id`, `specialization_id`, `national_id`, `city_id`, `appoint_id`, `experience_years`, `provider_id`) VALUES
+(2, 1, 45645645, 1, 1, 5, 6);
 
 -- --------------------------------------------------------
 
@@ -1006,7 +1040,8 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(1, 'patient', 'patient', NULL, NULL);
+(1, 'patient', 'patient', NULL, NULL),
+(2, 'doctor', '', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1044,6 +1079,7 @@ CREATE TABLE `services` (
   `category_id` int(11) NOT NULL,
   `provider_id` int(11) NOT NULL,
   `price` int(11) NOT NULL,
+  `service_type` int(11) NOT NULL,
   `discount` int(11) NOT NULL DEFAULT 0,
   `status` tinyint(2) NOT NULL DEFAULT 1,
   `img` mediumtext NOT NULL,
@@ -1056,9 +1092,9 @@ CREATE TABLE `services` (
 -- Dumping data for table `services`
 --
 
-INSERT INTO `services` (`id`, `code`, `category_id`, `provider_id`, `price`, `discount`, `status`, `img`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 12345, 1, 6, 200, 0, 1, 'ggffd.img', '2022-10-13 10:28:48', '2022-10-13 10:28:48', NULL),
-(2, 123456, 1, 6, 200, 0, 1, 'ggffd00.img', '2022-10-13 10:28:48', '2022-10-13 10:28:48', NULL);
+INSERT INTO `services` (`id`, `code`, `category_id`, `provider_id`, `price`, `service_type`, `discount`, `status`, `img`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 12345, 1, 6, 200, 1, 0, 1, 'ggffd.img', '2022-10-13 10:28:48', '2022-10-13 10:28:48', NULL),
+(2, 123456, 1, 6, 200, 0, 0, 1, 'ggffd00.img', '2022-10-13 10:28:48', '2022-10-13 10:28:48', NULL);
 
 -- --------------------------------------------------------
 
@@ -1371,9 +1407,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role_id`, `name`, `last_name`, `email`, `city_id`, `birth_date`, `email_isverified`, `avatar`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `deleted_at`, `phone`, `phone_isverified`, `device_token`, `join_date`, `active`, `device_info`, `last_login`) VALUES
-(2, 1, 'fatma', 'gh', 'fatma@fatma', 2, '2022-09-07', 1, '54', '2022-09-01 09:17:03', '$2y$10$h.yEwOFGXT2u9nMtZw5sO.sqVVFCunCrlmu1NhdGNWPAQnKzRTVAK', NULL, '2022-09-27 09:18:51', '2022-09-27 09:18:51', NULL, '1234567', 0, '1', '2022-09-27 11:18:51', 1, NULL, NULL),
+(2, 2, 'fatma', 'gh', 'fatma@fatma', 2, '2022-09-07', 1, '54', '2022-09-01 09:17:03', '$2y$10$h.yEwOFGXT2u9nMtZw5sO.sqVVFCunCrlmu1NhdGNWPAQnKzRTVAK', NULL, '2022-09-27 09:18:51', '2022-09-27 09:18:51', NULL, '1234567', 0, '1', '2022-09-27 11:18:51', 1, NULL, NULL),
 (3, 1, 'fatma1', 'gh1', NULL, 1, '1990-06-16', 0, NULL, NULL, '123456', NULL, '2022-10-02 10:07:40', '2022-10-02 10:07:40', NULL, '123456', 0, '1', '2022-10-02 14:07:40', 1, NULL, NULL),
-(6, 1, 'fatmaapi', 'gh_7', NULL, 1, '1990-06-16', 0, NULL, NULL, '$2y$10$h.yEwOFGXT2u9nMtZw5sO.sqVVFCunCrlmu1NhdGNWPAQnKzRTVAK', NULL, '2022-10-03 09:08:10', '2022-10-13 11:53:30', NULL, '+2001022752344', 0, '1', '2022-10-03 13:08:10', 0, NULL, '2022-10-13 13:53:30');
+(6, 1, 'fatmaapi', 'gh_7', NULL, 1, '1990-06-16', 0, NULL, NULL, '$2y$10$h.yEwOFGXT2u9nMtZw5sO.sqVVFCunCrlmu1NhdGNWPAQnKzRTVAK', NULL, '2022-10-03 09:08:10', '2022-10-31 11:45:56', NULL, '+2001022752344', 0, '1', '2022-10-03 13:08:10', 0, NULL, '2022-10-31 13:45:56');
 
 -- --------------------------------------------------------
 
@@ -1463,7 +1499,8 @@ ALTER TABLE `city_transalations`
 ALTER TABLE `comments`
   ADD PRIMARY KEY (`id`),
   ADD KEY `conslation_index` (`consalt_id`),
-  ADD KEY `patent_index` (`patient_id`);
+  ADD KEY `patent_index` (`patient_id`),
+  ADD KEY `doctor_id` (`doctor_id`);
 
 --
 -- Indexes for table `comment_translations`
@@ -1956,13 +1993,13 @@ ALTER TABLE `category_translations`
 -- AUTO_INCREMENT for table `chats`
 --
 ALTER TABLE `chats`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `chat_attachements`
 --
 ALTER TABLE `chat_attachements`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `city_transalations`
@@ -1974,7 +2011,7 @@ ALTER TABLE `city_transalations`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `comment_translations`
@@ -2142,7 +2179,7 @@ ALTER TABLE `provider_translations`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `role_translations`
