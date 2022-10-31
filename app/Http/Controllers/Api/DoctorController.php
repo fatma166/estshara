@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repositories\DoctorRepositories;
 use App\Http\Resources\DectorDetailsResource;
+use App\Http\Resources\ServiceTypeFeeResource ;
 class DoctorController extends Controller
 {
      
@@ -15,7 +16,9 @@ class DoctorController extends Controller
         $end=2;
         $doctor= new DoctorRepositories;
         $doctors= $doctor->list($request);
-       return(DectorDetailsResource::collection($doctors));
+
+        $data=array(DectorDetailsResource::collection($doctors));
+       return($data);
       //  print_r($doctors);
     }
 }

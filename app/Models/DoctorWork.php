@@ -48,4 +48,8 @@ class DoctorWork extends Model
 	{
 		return $this->hasOne(DoctorWorkTranslation::class, 'docotor_work_id');
 	}
+	public function service()
+	{
+		return $this->hasOne(Service::class,'provider_id');
+	}
 }

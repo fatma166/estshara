@@ -38,7 +38,8 @@ class DoctorDetail extends Model
 		'national_id' => 'int',
 		'city_id' => 'int',
 		'appoint_id' => 'int',
-		'experience_years' => 'int'
+		'experience_years' => 'int',
+		'provider_id'=>'int'
 	];
 
 	protected $fillable = [
@@ -47,7 +48,8 @@ class DoctorDetail extends Model
 		'national_id',
 		'city_id',
 		'appoint_id',
-		'experience_years'
+		'experience_years',
+		'provider_id'
 	];
 
 	public function appointment()
@@ -74,4 +76,18 @@ class DoctorDetail extends Model
 	{
 		return $this->hasOne(DoctorDetailTranslation::class, 'docor_detail_id', 'doctor_id');
 	}
+	
+	public function doctor_provider()
+	{
+		return $this->hasOne(Provider::class,'id','provider_id');
+	}
+
+	public function comments_doctor(){
+		return $this->hasMany(Comment::class, 'doctor_id', 'doctor_id');
+
+
+
+	}
+	
+	
 }

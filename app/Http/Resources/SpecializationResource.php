@@ -16,7 +16,8 @@ class SpecializationResource extends JsonResource
      */
     public function toArray($request)
     {
-        //return parent::toArray($request);
+    return parent::toArray($request);
+        if (isset($this->specialization_translations[0]['name'])){
         return[
                 'id'=> $this->id,
                 'img'=>$this->img,
@@ -30,5 +31,15 @@ class SpecializationResource extends JsonResource
 
 
         ];
+    }else{
+            return[   
+                'id'=> $this->id,
+                'img'=>$this->img,
+                'code'=>$this->code,
+                'locale'=>$this->locale,
+               'name'=>$this->name
+            ];
+
+    }
     }
 }

@@ -43,6 +43,7 @@ class Service extends Model
 		'category_id' => 'int',
 		'provider_id' => 'int',
 		'price' => 'int',
+		'service_type'=>'int',
 		'discount' => 'int',
 		'status' => 'int'
 	];
@@ -52,6 +53,7 @@ class Service extends Model
 		'category_id',
 		'provider_id',
 		'price',
+		'service_type',
 		'discount',
 		'status',
 		'img'
@@ -79,5 +81,9 @@ class Service extends Model
 	public function services_consalt()
 	{
 		return $this->hasMany(Consaltaion_service::class,'service_id');
+	}
+	public function service_type()
+	{
+		return $this->hasOne(ServiceType::class,'id','service_type');
 	}
 }

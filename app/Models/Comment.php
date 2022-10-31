@@ -35,6 +35,7 @@ class Comment extends Model
 	protected $casts = [
 		'consalt_id' => 'int',
 		'patient_id' => 'int',
+		'doctor_id'  => 'int',
 		'grade' => 'int',
 		'created_at' => 'int'
 	];
@@ -42,6 +43,7 @@ class Comment extends Model
 	protected $fillable = [
 		'consalt_id',
 		'patient_id',
+		'doctor_id',
 		'grade'
 	];
 
@@ -53,6 +55,10 @@ class Comment extends Model
 	public function user()
 	{
 		return $this->belongsTo(User::class, 'patient_id');
+	}
+	public function doctor()
+	{
+		return $this->belongsTo(User::class, 'doctor_id','id');
 	}
 
 	public function comment_translations()

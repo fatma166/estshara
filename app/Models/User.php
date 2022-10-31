@@ -103,10 +103,18 @@ class User extends Authenticatable implements JWTSubject
 		'device_info',
 		'last_login'
 	];
-
-	public function comments()
+	public function role()
+	{
+		return $this->hasOne(Role::class,'id','role_id');
+	}
+	 public function comments()
 	{
 		return $this->hasMany(Comment::class, 'patient_id');
+	}
+
+	public function comments_doctor()
+	{
+		return $this->hasMany(Comment::class,'doctor_id','id');
 	}
 
 	public function consulations()
