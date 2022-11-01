@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class commentResource extends JsonResource
+class CommentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,6 +14,9 @@ class commentResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+       // return parent::toArray($request);
+        return[
+            'rate'=>ceil(($this->grade)/($this->doctor_id)),
+        ];
     }
 }

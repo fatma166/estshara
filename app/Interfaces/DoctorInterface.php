@@ -3,9 +3,5 @@ namespace App\Interfaces;
 
 interface DoctorInterface
 {
- public function list($request);
-
-
-
-
+ public function list($request,$type);
 }

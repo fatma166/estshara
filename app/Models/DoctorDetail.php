@@ -39,7 +39,8 @@ class DoctorDetail extends Model
 		'city_id' => 'int',
 		'appoint_id' => 'int',
 		'experience_years' => 'int',
-		'provider_id'=>'int'
+		'provider_id'=>'int',
+		'online_flag'=>'int'
 	];
 
 	protected $fillable = [
@@ -49,7 +50,8 @@ class DoctorDetail extends Model
 		'city_id',
 		'appoint_id',
 		'experience_years',
-		'provider_id'
+		'provider_id',
+		'online_flag'
 	];
 
 	public function appointment()
@@ -84,9 +86,6 @@ class DoctorDetail extends Model
 
 	public function comments_doctor(){
 		return $this->hasMany(Comment::class, 'doctor_id', 'doctor_id');
-
-
-
 	}
 	
 	

@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\ServiceTypeFeeResource ;
 use App\Http\Resources\SpecializationResource;
+use App\Http\Resources\CommentResource;
 class DectorDetailsResource extends JsonResource
 {
     /**
@@ -15,7 +16,7 @@ class DectorDetailsResource extends JsonResource
      */
     public function toArray($request)
     {
-      // return parent::toArray($request);
+     // return parent::toArray($request);
        return[
               'id'=>$this->id,
               'role_id'=>$this->role_id,
@@ -28,8 +29,10 @@ class DectorDetailsResource extends JsonResource
 
               'avatar'=>$this->avatar,
               'fees'=>ServiceTypeFeeResource::collection($this->doctor_detail->doctor_provider->services),
-              'specialize'=>SpecializationResource::collection($this->doctor_detail->specialization->specialization_translations)
-             // 'rate'=>
+              'specialize'=>SpecializationResource::collection($this->doctor_detail->specialization->specialization_translations),
+              'rate'=>commentResource::collection($this->doctor_detail->comments_doctor),
+
+
 
 
 
