@@ -6,6 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\ConsulationResource;
 use App\Http\Resources\UserCollection;
 use App\Http\Resources\ServiceTypeFeeResource;
+use App\Http\Resources\SpecializationTranslationResource;
 class SpecializationResource extends JsonResource
 {
     /**
@@ -16,14 +17,15 @@ class SpecializationResource extends JsonResource
      */
     public function toArray($request)
     {
-    return parent::toArray($request);
+//return parent::toArray($request);
         if (isset($this->specialization_translations[0]['name'])){
         return[
                 'id'=> $this->id,
                 'img'=>$this->img,
                 'code'=>$this->code,
-                'name'=>$this->specialization_translations[0]['name'],
-                'service_fees'=> new ServiceTypeFeeResource($this->consulations[0]['service_type']['service_type_fees'][0]),
+                'name_locale'=>  SpecializationTranslationResource::collection($this->specialization_translations),
+               // 'locale'=>new SpecializationTranslationResource($this->specialization_translations->locale),
+                'fees'=> ServiceTypeFeeResource::collection($this->consulations),
                 'doctor_data'=> new UserResource($this->consulations[0]['user']),
                 'consulations'=>ConsulationResource::collection($this->consulations),
                 

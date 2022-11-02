@@ -32,7 +32,7 @@ class ServiceType extends Model
 
 	public function service_type_fees()
 	{
-		return $this->hasMany(ServiceTypeFee::class);
+		return $this->hasone(ServiceTypeFee::class,'service_type_id','id');
 	}
 
 	public function service_type_translation()

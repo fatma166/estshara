@@ -86,4 +86,6 @@ class Service extends Model
 	{
 		return $this->hasOne(ServiceType::class,'id','service_type');
 	}
+	
+	
 }

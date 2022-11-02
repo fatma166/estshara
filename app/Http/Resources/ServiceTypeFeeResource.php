@@ -14,10 +14,18 @@ class ServiceTypeFeeResource extends JsonResource
      */
     public function toArray($request)
     {
-       // return parent::toArray($request);
+       
+    // return parent::toArray($request);
+   $ff= parent::toArray($request);
+    //print_r();   
+      $fee_data=$ff['service_type']['service_type_fees'];
+       return($fee_data);
        return[
-        'fee'=>$this->service_type,
 
-       ];
+              'fee'=>$fee_data->fee,
+               'service_type_id'=>$fee_data->service_type_id
+
+
+       ]; 
     }
 }
