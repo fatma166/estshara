@@ -39,4 +39,9 @@ class GovernorateTranslation extends Model
 	{
 		return $this->belongsTo(Locale::class, 'locale');
 	}
+	
+	public function government()
+	{
+		return $this->belongsTo(Governorate::class);
+	}
 }

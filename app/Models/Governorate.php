@@ -44,4 +44,8 @@ class Governorate extends Model
 	{
 		return $this->hasMany(City::class);
 	}
+	public function govern_trans(){
+
+		 return $this->hasMany(GovernorateTranslation::class,'govarenment_id','id');
+	} 
 }
