@@ -21,6 +21,13 @@ class PlaceController extends Controller
     }
 
     public function getCity($government_id){
-        
+      
+      $place=new PlaceRepository;
+      $data=$place->getCity($government_id);
+      return response()->json([
+        'status' => 'success',
+        'data' =>$data,
+
+        ],200);
     }
 }
