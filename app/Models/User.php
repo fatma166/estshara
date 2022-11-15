@@ -102,7 +102,8 @@ class User extends Authenticatable implements JWTSubject
 		'active',
 		'device_info',
 		'last_login',
-		'online_flag'
+		'online_flag',
+		'gender'
 		
 	];
 	public function role()

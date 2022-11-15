@@ -4,8 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-
-class GovernorateResource extends JsonResource
+class GovernorateTransRsource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +15,9 @@ class GovernorateResource extends JsonResource
     public function toArray($request)
     {
        // return parent::toArray($request);
-       return [
-               'id'=>$this->id,
-               'country_id'=> $this->country_id,
-               'name'=>GovernorateTransRsource::collection($this->govern_trans)
-       ];
+      return[
+             'locale'=>$this->locale,
+             'name'=>$this->name
+            ];
     }
 }

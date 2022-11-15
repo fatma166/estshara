@@ -17,7 +17,8 @@ class DectorDetailsResource extends JsonResource
     public function toArray($request)
     {
    // return parent::toArray($request);
-   
+    if(count(ServiceTypeFeeResource::collection($this->doctor_detail->doctor_provider->services)))
+      {
        return[
               'id'=>$this->id,
               'role_id'=>$this->role_id,
@@ -27,7 +28,7 @@ class DectorDetailsResource extends JsonResource
               'email'=>$this->email,
 
               'city_id'=>$this->city_id,
-
+              'gender'=>$this->gender,
               'avatar'=>$this->avatar,
               'fees'=>ServiceTypeFeeResource::collection($this->doctor_detail->doctor_provider->services),
               'specialize'=>SpecializationResource::collection($this->doctor_detail->specialization->specialization_translations),
@@ -38,5 +39,8 @@ class DectorDetailsResource extends JsonResource
 
 
        ];
+    }else{
+        return[];
+    }
     }
 }

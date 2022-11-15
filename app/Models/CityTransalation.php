@@ -40,7 +40,7 @@ class CityTransalation extends Model
 
 	public function city_transalation()
 	{
-		return $this->belongsTo(CityTransalation::class, 'city_id');
+		return $this->belongsTo(City::class, 'city_id');
 	}
 
 	public function locale()

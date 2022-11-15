@@ -30,8 +30,8 @@ class DoctorRepositories implements DoctorInterface{
                   $data=User::
                     where('role_id',$role->id)
                     ->where (function($query) use($gender){
-                       if($gender!='null')
-                          $query->where('gender',$gender);
+                       /* if($gender!=null)
+                          $query->where('gender',$gender);*/
                     })
                   ->with([
                 'doctor_detail'=>function($query) use($request,$type){
@@ -42,11 +42,11 @@ class DoctorRepositories implements DoctorInterface{
                        
 
                 },'doctor_detail.doctor_provider.services'=>function($query) use($request){
-                                                                      $query->where('service_type',1);
-                                                                      $query->with('service_type.service_type_fees')
+                                                                      $query->where('service_type',1)
+                                                                  
                                                                       ->whereHas('service_type.service_type_fees', function($query) use($request) {
                                                               
-                                                                    
+                                                                        $query->with('service_type.service_type_fees');
                                                                       if(is_array($request['fees_range'])){
                                                                         
                                                                           $query->where('fee','>=',(int)$request['fees_range'][0]);

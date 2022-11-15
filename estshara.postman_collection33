@@ -1,0 +1,789 @@
+{
+	"info": {
+		"_postman_id": "1372c40d-1fa5-424d-b54d-c72cfb9f1017",
+		"name": "estshara",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "fatmaapi",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "gh_7",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "+2001022752344",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								},
+								{
+									"key": "birth_date",
+									"value": "1990-06-16",
+									"type": "text"
+								},
+								{
+									"key": "role_id",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "city_id",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "active",
+									"value": "0",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}auth/register",
+							"host": [
+								"{{url}}auth"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-roles",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}auth/get-roles",
+							"host": [
+								"{{url}}auth"
+							],
+							"path": [
+								"get-roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "phone",
+									"value": "+2001022752344",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}auth/login",
+							"host": [
+								"{{url}}auth"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "countries",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}auth/get-countries/1/1",
+							"host": [
+								"{{url}}auth"
+							],
+							"path": [
+								"get-countries",
+								"1",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "varfy phone number",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "verification_code",
+									"value": "175055",
+									"type": "default"
+								},
+								{
+									"key": "phone",
+									"value": "+2001022752344",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}auth/verify",
+							"host": [
+								"{{url}}auth"
+							],
+							"path": [
+								"verify"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "forgetpassword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "phone",
+									"value": "+2001022752344",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/auth/forgetPassword",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"forgetPassword"
+							],
+							"query": [
+								{
+									"key": "phone",
+									"value": "+2001022752344",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "validatePassowrd",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "token",
+									"value": "769909",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "12345678",
+									"type": "default"
+								},
+								{
+									"key": "confirmpass",
+									"value": "12345678",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}auth/validatePassowrd",
+							"host": [
+								"{{url}}auth"
+							],
+							"path": [
+								"validatePassowrd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "userData",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}auth/get-user-data",
+							"host": [
+								"{{url}}auth"
+							],
+							"path": [
+								"get-user-data"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "specialization",
+			"item": [
+				{
+					"name": "latest specialization",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "limit",
+									"value": "",
+									"type": "default",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}specialize/last-spcializations/1",
+							"host": [
+								"{{url}}specialize"
+							],
+							"path": [
+								"last-spcializations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "consultation",
+			"item": [
+				{
+					"name": "list_consultation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}consulation/list/wait/0/0",
+							"host": [
+								"{{url}}consulation"
+							],
+							"path": [
+								"list",
+								"wait",
+								"0",
+								"0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cancle consaltation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}consulation/cancle/4",
+							"host": [
+								"{{url}}consulation"
+							],
+							"path": [
+								"cancle",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_invoice",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}consulation/invoice/4",
+							"host": [
+								"{{url}}consulation"
+							],
+							"path": [
+								"invoice",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}consulation/details/4",
+							"host": [
+								"{{url}}consulation"
+							],
+							"path": [
+								"details",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "chat_notes",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "send-message",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "message",
+									"value": "رساله 1",
+									"type": "default"
+								},
+								{
+									"key": "to",
+									"value": "2",
+									"type": "default"
+								},
+								{
+									"key": "consalt_id",
+									"value": "4",
+									"type": "default"
+								},
+								{
+									"key": "attach[]",
+									"type": "file",
+									"src": "/C:/Users/Roka/Desktop/ahahi.PNG"
+								},
+								{
+									"key": "attach[]",
+									"type": "file",
+									"src": "/C:/Users/Roka/Desktop/77.PNG"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}consulation/send-message",
+							"host": [
+								"{{url}}consulation"
+							],
+							"path": [
+								"send-message"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "doctor",
+			"item": [
+				{
+					"name": "listonline",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}doctor/list/online",
+							"host": [
+								"{{url}}doctor"
+							],
+							"path": [
+								"list",
+								"online"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "count online doctors",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}doctor/list/countonline",
+							"host": [
+								"{{url}}doctor"
+							],
+							"path": [
+								"list",
+								"countonline"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list ALL",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}doctor/list",
+							"host": [
+								"{{url}}doctor"
+							],
+							"path": [
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "adavanced doctor serach",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list?governorate_id&city_id&degree&fees_range&gender&online_flag",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list"
+							],
+							"query": [
+								{
+									"key": "governorate_id",
+									"value": null
+								},
+								{
+									"key": "city_id",
+									"value": null
+								},
+								{
+									"key": "degree",
+									"value": null
+								},
+								{
+									"key": "fees_range",
+									"value": null
+								},
+								{
+									"key": "gender",
+									"value": null
+								},
+								{
+									"key": "online_flag",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "return_select",
+			"item": [
+				{
+					"name": "goverenment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}place/get-government",
+							"host": [
+								"{{url}}place"
+							],
+							"path": [
+								"get-government"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cities",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}place/get-city/1",
+							"host": [
+								"{{url}}place"
+							],
+							"path": [
+								"get-city",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "intro",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}get-intro",
+					"host": [
+						"{{url}}get-intro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "url",
+			"value": "",
+			"type": "default"
+		}
+	]
+}

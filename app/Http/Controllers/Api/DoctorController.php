@@ -25,7 +25,7 @@ class DoctorController extends Controller
         if ($type=='countonline')
             $data=array('count'=>$doctors);
         else
-            $data=array(DectorDetailsResource::collection($doctors));
+            $data=DectorDetailsResource::collection($doctors);
       // return($data);
       //  print_r($doctors);
         return response()->json([

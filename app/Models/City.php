@@ -56,4 +56,9 @@ class City extends Model
 	{
 		return $this->hasMany(Provider::class);
 	}
+	
+	public function city_trans()
+	{
+		return $this->hasMany(CityTransalation::class,'city_id','id');
+	}
 }
