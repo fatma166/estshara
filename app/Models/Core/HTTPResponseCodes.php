@@ -7,6 +7,7 @@ namespace App\Modules\Core;
 abstract class HTTPResponseCodes
 {
     const Sucess = [
+        
         "title" => "success",
         "code" => 200,
         "message" => "Request has been successfully processed."
@@ -29,5 +30,7 @@ abstract class HTTPResponseCodes
         "code" => 400,
         "message" => "Server failed to process your request."
     ];
+   
+
 
 }

@@ -725,6 +725,9 @@
 			"item": [
 				{
 					"name": "editProfile",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -737,7 +740,18 @@
 							]
 						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
@@ -748,42 +762,44 @@
 								},
 								{
 									"key": "firstname",
-									"value": "",
+									"value": "null",
 									"type": "default"
 								},
 								{
 									"key": "phone",
-									"value": "",
-									"type": "default"
+									"value": "124575",
+									"type": "default",
+									"disabled": true
 								},
 								{
 									"key": "country_code",
-									"value": "",
+									"value": "null",
 									"type": "default"
 								},
 								{
 									"key": "email",
-									"value": "",
+									"value": "NULL",
+									"description": "FDFDFD",
 									"type": "default"
 								},
 								{
 									"key": "password",
-									"value": "",
+									"value": "3334",
 									"type": "default"
 								},
 								{
 									"key": "birthdate",
-									"value": "",
+									"value": "null",
 									"type": "default"
 								},
 								{
 									"key": "gender",
-									"value": "",
+									"value": "null",
 									"type": "default"
 								},
 								{
 									"key": "lastname",
-									"value": "",
+									"value": "null",
 									"type": "default"
 								}
 							]
@@ -795,6 +811,20 @@
 							],
 							"path": [
 								"edit-profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add patient details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
 							]
 						}
 					},

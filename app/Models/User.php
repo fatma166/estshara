@@ -214,5 +214,9 @@ class User extends Authenticatable implements JWTSubject
 		return $this->hasMany(Chat::class,'to_id');
 	
 	}
+	public function patient_details(){
+        return $this->hasOne(Patient_detail::class, 'user_id');
+            
+    }
 
 }

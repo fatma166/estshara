@@ -33,6 +33,10 @@
         "code" => 401,
         "message" => "Unauthorized to process your request."
     ];
-
+    const Validation= [
+        "status" => "valiadtion error",
+        "code" => 422,
+        "message" => "validation error "
+    ];
   }
       
