@@ -218,5 +218,10 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasOne(Patient_detail::class, 'user_id');
             
     }
+	
+	public function userscheckupscan()
+	{
+		return $this->hasMany(Patient_scan::class);
+	}
 
 }

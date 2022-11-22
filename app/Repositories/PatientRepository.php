@@ -3,10 +3,14 @@ namespace App\Repositories;
 
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Patient_detail;
+use App\Models\Patient_scan;
+use App\Models\Patient_scan_attach;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Interfaces\PatientInterface;
+use App\Traits\UploadAttachTrait;
 
 class PatientRepository implements PatientInterface{
 
@@ -44,22 +48,23 @@ class PatientRepository implements PatientInterface{
      }
     }
     public function editMidicalDetails($data,$user){
-            $user=$user->patient_details;
+            $patient=new Patient_scan;
         try{ 
               if(isset($request['weight']))
-                    $user->weight=$request['weight'];
+                   $patient->weight=$request['weight'];
               if(isset($request['height']))     
-                    $user->height=$request['height'];
+              $patient->height=$request['height'];
               if(isset($request['hr']))
-                    $user->hr=$request['hr'];
+              $patient->hr=$request['hr'];
               if(isset($request['smoking']))
-                    $user->smoking=$request['smoking'];
+              $patient->smoking=$request['smoking'];
               if(isset($request['alchole']))
-                    $user->alchole=$request['alchole'];
+              $patient->alchole=$request['alchole'];
               if(isset($request['birthdate']))
-                    $user->birthdate=$request['birthdate'];
+              $patient->birthdate=$request['birthdate'];
               if(isset($request['Marital_status']))
-                    $user->Marital_status=$request['Marital_status'];
+              $patient->Marital_status=$request['Marital_status'];
+              $patient->user_id=$user;
               $user->save();
               
               return(true);
@@ -67,8 +72,35 @@ class PatientRepository implements PatientInterface{
               return(false);
         }
     }
-    public function editChechupDetails(){
+    public function editCheckupDetails($data,$user){
+      //  print_r($data->all()); exit;
+        $patient=new Patient_scan;
+        try{ 
+              if(isset($request['name']))
+                   $patient->name=$request['name'];
+              if(isset($request['date']))     
+              $patient->date=$request['date'];
+              $patient->user_id=$user;
+              $patient_scan= $user->save();
+              if(isset($request['attach'])){
+               $images=$this->upload($request['attach']);
+                 foreach($images as $image){
+                {
+                    $attach=new Patient_scan_attach;
+                    $attach->P_scan_id=$patient_scan->id;
+                    $attach->path=$image;
+                    $attach->save();
 
+                 }
+              }
+              
+             
+              
+              return(true);
+            }
+        }catch(Exception $e){       
+              return(false);
+        }
     }
     public function editchronicDiseases(){
 
