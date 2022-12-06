@@ -4,12 +4,12 @@ use Illuminate\Http\Request;
 trait UploadAttachTrait {
     public function Upload($data,$folder) {
        
-        if($data->hasFile('attach'))
-        {
-            $allowedfileExtension=['pdf','jpg','png','docx','PNG'];
-            $files = $data->file('attach');
+       // if($data->hasFile('attach'))
+       // {
+        $allowedfileExtension=['pdf','jpg','png','docx','PNG'];
+           // $files = $data->file('attach');
             $images=array();
-        foreach($files as $file){
+        foreach($data as $file){
           
             $filename = $file->getClientOriginalName();
             
@@ -19,14 +19,18 @@ trait UploadAttachTrait {
            
             if($check)
             {
-                
-                $images[]=$file->move(public_path().'/images/'.$folder.'/',time().'.'.$extension);
+                if (!file_exists(public_path().'/images/'.$folder)) {
+                    mkdir(public_path().'/images/'.$folder, 0777, true);
+                } 
+                  $file->move(public_path().'/images/'.$folder.'/',time().'.'.$extension);
+                  $images[]='images/'.$folder.'/'.time().'.'.$extension;
                 
                   
             }
             
         }
+      
+    
         return $images;
-        }
     }
 }

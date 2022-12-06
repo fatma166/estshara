@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Patient_scan extends Model
 {
     use HasFactory;
+    public $timestamps = false;
     protected $fillable=['name','date','user_id'];
 
 

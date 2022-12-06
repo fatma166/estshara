@@ -17,9 +17,14 @@ class ServiceTypeFeeResource extends JsonResource
        
     // return parent::toArray($request);
    $ff= parent::toArray($request);
-    //print_r();   
+    //print_r($ff); exit;  
+      if(isset($ff['service_type']['service_type_fees'])){
       $fee_data=$ff['service_type']['service_type_fees'];
-       return($fee_data);
+       //return($fee_data);
+      }else{
+        $fee_data=$this;
+      }
+        //print_r($fee_data); exit;  
        return[
 
               'fee'=>$fee_data->fee,

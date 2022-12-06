@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Patient_scan_attach extends Model
 {
     use HasFactory;
+    public $timestamps = false;
+    public $table='patient_scan_attachs';
     protected $fillable=['path','P_scan_id'];
 
         /**
@@ -19,5 +21,5 @@ class Patient_scan_attach extends Model
         {
             return $this->belongsTo(User::class, 'P_scan_id');
         }
-    }
+    
 }
