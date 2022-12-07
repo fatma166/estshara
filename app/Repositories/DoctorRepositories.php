@@ -4,6 +4,7 @@ namespace App\Repositories;
 use App\Interfaces\DoctorInterface;
 use App\Models\User;
 use  App\Models\Role;
+use  App\Models\Report;
 use Illuminate\Support\Facades\DB;
 
 class DoctorRepositories implements DoctorInterface{
@@ -73,5 +74,23 @@ class DoctorRepositories implements DoctorInterface{
          return($data);
     
    }
+
+   /**
+    * 
+    * REPORT DOCTOR
+    */
+  public function reportDoctor($request,$user){
+    try{
+      $report= new Report;
+      $report->doctor_id=$request->doctor_id;
+      $report->patient_id=$user;
+      $report->message=$request->message;
+      $report->save();
+      return true;
+    }catch(Exception $e){
+      return false;      
+    }
+
+  }
 
 }

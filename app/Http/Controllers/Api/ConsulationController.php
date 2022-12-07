@@ -19,12 +19,13 @@ class ConsulationController extends Controller
         $consaltation=new ConsulationRepositories();
         $data= $consaltation->list_consultation($status,$start,$end,$id);
         return response()->json([
-         'status' =>HTTPResponseCodes::Sucess['status'],
-         'data' =>$data,
-         'message'=> HTTPResponseCodes::Sucess['message'],
-        
- 
+              'status' =>HTTPResponseCodes::Sucess['status'],
+              'data' =>$data,
+              'message'=> HTTPResponseCodes::Sucess['message'],
+              
+      
         ],HTTPResponseCodes::Sucess['code']);
+        
      }
      public function cancle_consultation($id){
 

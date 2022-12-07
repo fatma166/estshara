@@ -30,6 +30,7 @@ class DectorDetailsResource extends JsonResource
               'city_id'=>$this->city_id,
               'gender'=>$this->gender,
               'avatar'=>$this->avatar,
+              'instractions'=>$this->instractions,
               'fees'=>ServiceTypeFeeResource::collection($this->doctor_detail->doctor_provider->services),
               'specialize'=>SpecializationResource::collection($this->doctor_detail->specialization->specialization_translations),
               'rate'=>commentResource::collection($this->doctor_detail->comments_doctor),
