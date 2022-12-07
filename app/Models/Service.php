@@ -61,7 +61,9 @@ class Service extends Model
 
 	public function provider()
 	{
-		return $this->belongsTo(Provider::class);
+		//return $this->belongsTo(Provider::class);
+		return $this->belongsToMany(Provider::class);
+		
 	}
 
 	public function category()
