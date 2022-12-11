@@ -15,9 +15,12 @@ class SpecializationTranslationResource extends JsonResource
     public function toArray($request)
     {
 //return parent::toArray($request);
+    $data=parent::toArray($request);
+//print_r($data); exit;
        return[
-        'name'=>$this->name,
-        'locale'=>$this->locale
+        'name'=>$data['name'],
+        'locale'=>$data['locale']['locale_code'],
+        'locale_name'=>$data['locale']['locale_translations'][0]['name']
        ];
     }
 }

@@ -14,7 +14,7 @@ use App\Http\Resources\PaymentOrderResource;
 use App\Http\Resources\PaymentMethodTransalationResource;
 use App\Http\Resources\ConsaltationDetailsResource;
 use App\Http\Resources\ChatConsaltationResource;
-
+use Illuminate\Support\Facades\DB;
 class ConsulationRepositories implements ConsulationInterface{
 
     public function list_consultation($status,$start,$end,$id){
@@ -35,11 +35,16 @@ class ConsulationRepositories implements ConsulationInterface{
          $query->where('status',$status);
       if($id!=null)
           $query->where('id',$id);
-          $query->with(['user']);
-          $query->with('service_type.service_type_fees');
+          $query->with(['user' => function ($query) use ($sortDirection) {
+
+            $query->with(['doctor_detail']);
+            
+           }]);
+        //  $query->with('service_type.service_type_fees');
+        
           $query->orderBy('id', $sortDirection);
 }
-,'specialization_translations'])->offset($start)->limit($end)->get()->sortByDesc('consulations.created_at');//->toArray();
+,'specialization_translations.locale.locale_translations'])->offset($start)->limit($end)->get()->sortByDesc('consulations.created_at');//->toArray();
  //print_r($result);exit;
  
         return SpecializationResource::collection($result);
@@ -87,18 +92,26 @@ class ConsulationRepositories implements ConsulationInterface{
 
     }
     public function details_consultation($id){
-	
-        $data=Consaltaion_service::with(['services'/*=>function($query) use($id){
+	     // Db::EnableQueryLog();
+        $data=Consaltaion_service::with([/*'services'=>function($query) use($id){
 
       
                   $query;
 
-          }*/])->where('consulation_id',$id)->get();
+          },*/'services.provider'=>function($query) use($id){
+
+      
+                  $query->addSelect(['price','discount','status']);;
+
+                }])->where('consulation_id',$id)->get();
+
+        //  print_R(DB::getQueryLog()); exit;
           return( ConsaltationDetailsResource::collection($data));
 
        
     }
     public function chat_consultation($id,$type){
+
         $data=Consulation::with(['chats'=>function($query) use($type,$id){
                           $query->where('consalt_id',$id)->where('type','note');
                           $query->with('chat_from')->with('chat_to');

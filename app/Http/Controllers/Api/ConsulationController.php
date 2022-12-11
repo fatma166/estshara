@@ -64,6 +64,7 @@ class ConsulationController extends Controller
  
         ],HTTPResponseCodes::Sucess['code']);
      }
+
      function details_consultation($id){
       
           $consaltation=new ConsulationRepositories();
@@ -76,6 +77,7 @@ class ConsulationController extends Controller
     
            ],HTTPResponseCodes::Sucess['code']);
      }
+     
      public function chat_consultation($id,$type="reg"){
 
     

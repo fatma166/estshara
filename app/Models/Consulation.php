@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $patient_id
  * @property int $doctor_id
  * @property int $spacialization_id
- * @property int $service_type_id
+ *
  * @property Carbon $date
  * @property Carbon $end_date
  * @property Carbon $created_at
@@ -29,7 +29,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * 
  * @property Consulation $consulation
  * @property User $user
- * @property ServiceType $service_type
+ *
  * @property Specialization $specialization
  * @property Attachment $attachment
  * @property Collection|Comment[] $comments
@@ -47,7 +47,7 @@ class Consulation extends Model
 		'patient_id' => 'int',
 		'doctor_id' => 'int',
 		'spacialization_id' => 'int',
-		'service_type_id' => 'int'
+		//'service_type_id' => 'int'
 	];
 
 	protected $dates = [
@@ -61,7 +61,7 @@ class Consulation extends Model
 		'patient_id',
 		'doctor_id',
 		'spacialization_id',
-		'service_type_id',
+		//'service_type_id',
 		'date',
 		'end_date'
 	];
@@ -76,10 +76,10 @@ class Consulation extends Model
 		return $this->belongsTo(User::class,'doctor_id');
 	}
 
-	public function service_type()
+	/*public function service_type()
 	{
 		return $this->belongsTo(ServiceType::class);
-	}
+	}*/
 
 	public function specialization()
 	{
@@ -100,10 +100,10 @@ class Consulation extends Model
 	{
 		return $this->hasOne(PaymentConsulation::class, 'consaltation_id');
 	}
-	public function consaltaion_services()
+	/*public function consaltaion_services()
 	{
 		return $this->hasMany(Consaltaion_service::class,'service_id');
-	}
+	}*/
 
 	public function chats()
 	{

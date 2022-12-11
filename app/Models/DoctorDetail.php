@@ -52,7 +52,8 @@ class DoctorDetail extends Model
 		'experience_years',
 		'provider_id',
 		'online_flag',
-		'instractions'
+		'instractions',
+		'prices'
 	];
 
 	public function appointment()

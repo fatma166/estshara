@@ -42,20 +42,20 @@ class Service extends Model
 		'code' => 'int',
 		'category_id' => 'int',
 		'provider_id' => 'int',
-		'price' => 'int',
+		//'price' => 'int',
 		'service_type'=>'int',
-		'discount' => 'int',
-		'status' => 'int'
+		//'discount' => 'int',
+		//'status' => 'int'
 	];
 
 	protected $fillable = [
 		'code',
 		'category_id',
 		'provider_id',
-		'price',
+		//'price',
 		'service_type',
-		'discount',
-		'status',
+		//'discount',
+		//'status',
 		'img'
 	];
 

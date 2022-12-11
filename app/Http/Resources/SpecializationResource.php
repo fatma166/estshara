@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\ConsulationResource;
 use App\Http\Resources\UserCollection;
+use App\Http\Resources\DectorDetailsResource;
 use App\Http\Resources\ServiceTypeFeeResource;
 use App\Http\Resources\SpecializationTranslationResource;
 class SpecializationResource extends JsonResource
@@ -17,21 +18,20 @@ class SpecializationResource extends JsonResource
      */
     public function toArray($request)
     {
-//return parent::toArray($request);
+        //return parent::toArray($request);
+
         if (isset($this->specialization_translations[0]['name'])){
         return[
                 'id'=> $this->id,
                 'img'=>$this->img,
                 'code'=>$this->code,
-                'name_locale'=>  SpecializationTranslationResource::collection($this->specialization_translations),
+                'name_locale'=>SpecializationTranslationResource::collection($this->specialization_translations),
                // 'locale'=>new SpecializationTranslationResource($this->specialization_translations->locale),
-                'fees'=> ServiceTypeFeeResource::collection($this->consulations),
-                'doctor_data'=> new UserResource($this->consulations[0]['user']),
+               // 'fees'=> ServiceTypeFeeResource::collection($this->consulations),
+               // 'doctor_data'=> DectorDetailsResource::collection($this->consulations[0]['user']),//UserResource($this->consulations[0]['user']),
                 'consulations'=>ConsulationResource::collection($this->consulations),
                 
-                
-
-
+        
         ];
     }else{
             return[   
@@ -39,7 +39,7 @@ class SpecializationResource extends JsonResource
                 'img'=>$this->img,
                 'code'=>$this->code,
                 'locale'=>$this->locale,
-               'name'=>$this->name
+                'name'=>$this->name
             ];
 
     }
