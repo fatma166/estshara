@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use App\Modules\Core\Helper;
 class CommentResource extends JsonResource
 {
     /**
@@ -16,7 +16,8 @@ class CommentResource extends JsonResource
     {
        // return parent::toArray($request);
         return[
-            'rate'=>ceil(($this->grade)/($this->doctor_id)),
+
+            'rate'=>Helper::rateFormmating($this),
         ];
     }
 }
