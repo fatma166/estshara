@@ -92,6 +92,9 @@ class ConsulationController extends Controller
        ],HTTPResponseCodes::Sucess['code']);
 
       }
+
+
+
       public function send_message(Request $request){
         
          $input=$request->all();
@@ -124,5 +127,19 @@ class ConsulationController extends Controller
                  
           
                  ],HTTPResponseCodes::Sucess['code']);
+     }
+
+
+     public function consulate_note(Request $request){
+        $consaltation=new ConsulationRepositories();
+        $data=$consaltation->consulate_note($request);
+  
+      return response()->json([
+       'status' =>HTTPResponseCodes::Sucess['status'],
+       'data' =>$data,
+       'message'=> HTTPResponseCodes::Sucess['message'],
+      
+
+      ],HTTPResponseCodes::Sucess['code']);
      }
 }
