@@ -5,6 +5,9 @@ use App\Models\Consulation;
 use App\Models\Consaltaion_service;
 use App\Models\PaymentMethod;
 use App\Models\Specialization;
+use App\Models\Note;
+
+
 use Illuminate\Http\Response;
 
 use App\Http\Resources\ConsulationResource;
@@ -18,6 +21,7 @@ use Illuminate\Support\Facades\DB;
 class ConsulationRepositories implements ConsulationInterface{
 
     public function list_consultation($status,$start,$end,$id){
+      
         $sortDirection ='asc'; 
        /* $result=Consulation::with(['user' => function ($query) use ($sortDirection) { 
                                      
@@ -37,7 +41,10 @@ class ConsulationRepositories implements ConsulationInterface{
           $query->where('id',$id);
           $query->with(['user' => function ($query) use ($sortDirection) {
 
-            $query->with(['doctor_detail']);
+            $query->with(['doctor_detail'=> function ($query) use ($sortDirection) {
+
+              $query->with(['comments_doctor']);
+            }]);
             
            }]);
         //  $query->with('service_type.service_type_fees');
@@ -45,7 +52,7 @@ class ConsulationRepositories implements ConsulationInterface{
           $query->orderBy('id', $sortDirection);
 }
 ,'specialization_translations.locale.locale_translations'])->offset($start)->limit($end)->get()->sortByDesc('consulations.created_at');//->toArray();
- //print_r($result);exit;
+ 
  
         return SpecializationResource::collection($result);
       
@@ -69,23 +76,27 @@ class ConsulationRepositories implements ConsulationInterface{
             }
             return true;
     }
-    public function get_invoice($id){
+    public function get_invoice($id,$cons_type=1){
 	
           $invoice=Consulation::with(['payment_consulation.payment_log.payment_method' => function ($query) use ($id) {
           
                // $query;
+                  },'user.doctor_detail'=>function ($query) use ($id,$cons_type) {
+                  // $query->addSelect(['prices']);
                   }])->find($id);
-                 // print_r($invoice); exit;
+                ///  print_r($invoice); exit;
           $payment_consulation=$invoice->payment_consulation;
-          $service_type= $invoice->service_type;
-          $service_type_fees=$service_type->service_type_fees->first();
+          $prices= $invoice->user->doctor_detail->prices;
+         // print_r($prices); exit;
+       //   $service_type= $invoice->service_type;
+        //  $service_type_fees=$service_type->service_type_fees->first();
           $payment_log=$payment_consulation->payment_log;
           $payment_order=$payment_log->payment_order;
           $payment_method= $payment_log->payment_method->first();
           $payment_method_transalations=$payment_method->payment_method_transalations;
          // print_r($mm);exit;
 
-                return(['service_type_fees'=>json_decode(json_encode(new ServiceTypeFeeResource($service_type_fees))),'payment_order'=>json_decode(json_encode(new PaymentOrderResource($payment_order))),'payment_method_transalations'=>json_decode(json_encode(new  PaymentMethodTransalationResource($payment_method_transalations)))]);
+                return(['prices'=>$prices,'payment_log'=> $payment_log,/*'service_type_fees'=>json_decode(json_encode(new ServiceTypeFeeResource($service_type_fees))),*/'payment_order'=>json_decode(json_encode(new PaymentOrderResource($payment_order))),'payment_method_transalations'=>json_decode(json_encode(new  PaymentMethodTransalationResource($payment_method_transalations)))]);
 
            
              
@@ -93,21 +104,21 @@ class ConsulationRepositories implements ConsulationInterface{
     }
     public function details_consultation($id){
 	     // Db::EnableQueryLog();
-        $data=Consaltaion_service::with([/*'services'=>function($query) use($id){
+      /*  $data=Consaltaion::with([/*'services'=>function($query) use($id){
 
       
                   $query;
 
-          },*/'services.provider'=>function($query) use($id){
+          },*//*'services.provider'=>function($query) use($id){
 
       
                   $query->addSelect(['price','discount','status']);;
 
-                }])->where('consulation_id',$id)->get();
+                }])->where('id',$id)->get();
 
         //  print_R(DB::getQueryLog()); exit;
           return( ConsaltationDetailsResource::collection($data));
-
+*/
        
     }
     public function chat_consultation($id,$type){
@@ -124,4 +135,30 @@ class ConsulationRepositories implements ConsulationInterface{
     public function send_message($data){
         
     }
+    /**
+     * 
+     * 
+     */
+
+    public function consulate_note($data){
+     $data= $data->all();
+      try{
+      $result=Note::where('consultation_id',$data['consultation_id'])->first();
+      }catch(Exception $e){
+        return false;
+      }
+      return $result;
+    }
+    /**
+     * 
+     */
+    public function consulat_drags($request){
+          $data= $request->all();
+          // try{
+          $result=Consaltaion_service::where('consulation_id',$data['consulation_id'])->get()->toArray();
+          // }catch(Exception $e){
+          //   return false;
+        //  }
+          return $result;
+     }
 }

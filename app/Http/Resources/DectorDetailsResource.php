@@ -6,6 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\ServiceTypeFeeResource ;
 use App\Http\Resources\SpecializationResource;
 use App\Http\Resources\CommentResource;
+use App\Modules\Core\Helper;
 class DectorDetailsResource extends JsonResource
 {
     /**
@@ -16,9 +17,10 @@ class DectorDetailsResource extends JsonResource
      */
     public function toArray($request)
     {
-   // return parent::toArray($request);
-    if(count(ServiceTypeFeeResource::collection($this->doctor_detail->doctor_provider->services)))
-      {
+       // print_r(parent::toArray($request)); exit;
+  // return parent::toArray($request);
+   // if(count(ServiceTypeFeeResource::collection($this->doctor_detail->doctor_provider->services)))
+     // {
        return[
               'id'=>$this->id,
               'role_id'=>$this->role_id,
@@ -30,19 +32,19 @@ class DectorDetailsResource extends JsonResource
               'city_id'=>$this->city_id,
               'gender'=>$this->gender,
               'avatar'=>$this->avatar,
-              'instractions'=>$this->$this->doctor_detail->instractions,
-              'prices'=>$this->$this->doctor_detail->prices,
-              'fees'=>ServiceTypeFeeResource::collection($this->doctor_detail->doctor_provider->services),
-              'specialize'=>SpecializationResource::collection($this->doctor_detail->specialization->specialization_translations),
-              'rate'=>commentResource::collection($this->doctor_detail->comments_doctor),
+              'instractions'=>$this->doctor_detail->instractions,
+              'prices'=>$this->doctor_detail->prices,
+              //'fees'=>ServiceTypeFeeResource::collection($this->doctor_detail->doctor_provider->services),
+             // 'specialize'=>SpecializationResource::collection($this->doctor_detail->specialization->specialization_translations),
+              'rate'=>Helper::rateFormmating($this->doctor_detail->comments_doctor),
 
 
 
 
 
        ];
-    }else{
-        return[];
-    }
+   // }else{
+    //    return[];
+   // }
     }
 }

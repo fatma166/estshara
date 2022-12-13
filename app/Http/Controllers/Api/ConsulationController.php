@@ -4,16 +4,20 @@ namespace App\Http\Controllers\Api;
 use  App\Repositories\ConsulationRepositories;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Modules\Core\Helper;
 use App\Modules\Core\HTTPResponseCodes;
 use App\Http\Traits\UploadAttachTrait;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Chat;
+use App\Http\Requests\Api\DonsulatDragsRequest;
 use App\Models\ChatAttachement;
 class ConsulationController extends Controller
 {
     //
     use UploadAttachTrait;
-
+      /**
+       * 
+      */
     public function list_consultation($status='all',$start=0,$end=5,$id=null){
        
         $consaltation=new ConsulationRepositories();
@@ -27,6 +31,9 @@ class ConsulationController extends Controller
         ],HTTPResponseCodes::Sucess['code']);
         
      }
+           /**
+       * 
+      */
      public function cancle_consultation($id){
 
         $consaltation=new ConsulationRepositories();
@@ -51,6 +58,9 @@ class ConsulationController extends Controller
  
         ],HTTPResponseCodes::Sucess['code']);
      }
+           /**
+       * 
+      */
      public function get_invoice($id){
        
         $consaltation=new ConsulationRepositories();
@@ -64,7 +74,9 @@ class ConsulationController extends Controller
  
         ],HTTPResponseCodes::Sucess['code']);
      }
-
+      /**
+       * 
+      */
      function details_consultation($id){
       
           $consaltation=new ConsulationRepositories();
@@ -77,7 +89,9 @@ class ConsulationController extends Controller
     
            ],HTTPResponseCodes::Sucess['code']);
      }
-     
+           /**
+       * 
+      */
      public function chat_consultation($id,$type="reg"){
 
     
@@ -93,7 +107,9 @@ class ConsulationController extends Controller
 
       }
 
-
+      /**
+       * 
+      */
 
       public function send_message(Request $request){
         
@@ -128,18 +144,41 @@ class ConsulationController extends Controller
           
                  ],HTTPResponseCodes::Sucess['code']);
      }
-
+      /**
+       * 
+      */
 
      public function consulate_note(Request $request){
         $consaltation=new ConsulationRepositories();
         $data=$consaltation->consulate_note($request);
-  
+        if(!($data==null))
+        $data=$data->toArray($data);
+      
       return response()->json([
        'status' =>HTTPResponseCodes::Sucess['status'],
-       'data' =>$data,
+       'data' =>Helper::null_formatting($data),
        'message'=> HTTPResponseCodes::Sucess['message'],
       
 
       ],HTTPResponseCodes::Sucess['code']);
+     }
+
+      /**
+       * 
+      */
+
+     public function consulat_drags(DonsulatDragsRequest $request){
+         $consaltation=new ConsulationRepositories();
+         $data=$consaltation->consulat_drags($request);
+         if(!($data==null))
+         $data=$data->toArray($data);
+      
+         return response()->json([
+         'status' =>HTTPResponseCodes::Sucess['status'],
+         'data' =>Helper::null_formatting($data),
+         'message'=> HTTPResponseCodes::Sucess['message'],
+         
+
+         ],HTTPResponseCodes::Sucess['code']);
      }
 }

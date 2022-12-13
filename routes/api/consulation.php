@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
         route::get('details/{id}','ConsulationController@details_consultation');
         route::get('chats/{id}/{type?}','ConsulationController@chat_consultation');
         route::post('send-message','ConsulationController@send_message');
+        route::get('get-note','ConsulationController@consulate_note');
+        route::get('get-consulat-drags','ConsulationController@consulat_drags');
     });
        
     

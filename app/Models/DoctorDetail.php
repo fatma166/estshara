@@ -40,7 +40,8 @@ class DoctorDetail extends Model
 		'appoint_id' => 'int',
 		'experience_years' => 'int',
 		'provider_id'=>'int',
-		'online_flag'=>'int'
+		'online_flag'=>'int',
+		'prices'=>'json'
 	];
 
 	protected $fillable = [

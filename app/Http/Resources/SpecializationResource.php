@@ -18,9 +18,10 @@ class SpecializationResource extends JsonResource
      */
     public function toArray($request)
     {
-        //return parent::toArray($request);
+     // return parent::toArray($request);
 
         if (isset($this->specialization_translations[0]['name'])){
+        
         return[
                 'id'=> $this->id,
                 'img'=>$this->img,
@@ -30,7 +31,7 @@ class SpecializationResource extends JsonResource
                // 'fees'=> ServiceTypeFeeResource::collection($this->consulations),
                // 'doctor_data'=> DectorDetailsResource::collection($this->consulations[0]['user']),//UserResource($this->consulations[0]['user']),
                 'consulations'=>ConsulationResource::collection($this->consulations),
-                
+                'doctor_details'=>new DectorDetailsResource($this->consulations[0]->user),
         
         ];
     }else{

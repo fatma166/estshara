@@ -10,6 +10,8 @@ interface ConsulationInterface
     public function details_consultation($id);
     public function chat_consultation($id,$type);
     public function send_Message($data);
+    public function consulate_note($data);
+    public function consulat_drags($request);
    
 
 }
