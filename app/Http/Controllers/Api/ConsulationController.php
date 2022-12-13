@@ -89,7 +89,7 @@ class ConsulationController extends Controller
     
            ],HTTPResponseCodes::Sucess['code']);
      }
-           /**
+      /**
        * 
       */
      public function chat_consultation($id,$type="reg"){

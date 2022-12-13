@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repositories\DoctorRepositories;
 use App\Http\Requests\Api\ReportDoctorRequest;
+use App\Http\requests\Api\DoctorDetailsRequest;
 use App\Http\Resources\DectorDetailsResource;
 use App\Http\Resources\ServiceTypeFeeResource ;
 use App\Modules\Core\HTTPResponseCodes;
@@ -59,5 +60,14 @@ class DoctorController extends Controller
     
                 ], HTTPResponseCodes::BadRequest['code']); 
         }
+    }
+     /**
+      * 
+
+      */
+     public function doctor_details(DoctorDetailsRequest $request){
+        $doctor=new DoctorRepositories;
+        $doctor=$doctor->doctor_details($request);
+        print_r($doctor); exit;
     }
 }

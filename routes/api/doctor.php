@@ -11,4 +11,5 @@ Route::namespace('Api')->prefix('doctor')->middleware('auth_api')->group (functi
 
     route::get('list/{type?}','DoctorController@list');
     route::post('report-doctor','DoctorController@reportDoctor');
+    route::get('doctor-details','DoctorController@doctor_details');
 });

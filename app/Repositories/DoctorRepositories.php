@@ -5,6 +5,8 @@ use App\Interfaces\DoctorInterface;
 use App\Models\User;
 use  App\Models\Role;
 use  App\Models\Report;
+use  App\Models\Consulation;
+
 use Illuminate\Support\Facades\DB;
 
 class DoctorRepositories implements DoctorInterface{
@@ -91,6 +93,24 @@ class DoctorRepositories implements DoctorInterface{
       return false;      
     }
 
+  }
+
+  /**
+   * 
+   * 
+   */
+  public function doctor_details($request){
+    $data=$request->all();
+    $doctor_data=User::with(['doctor_detail'=> function ($query) use ($request) {
+                             $query->with(['specialization'=>function($query) use($request){
+                                      $query->with('specialization_translations');
+                             }]);
+                             $query->with(['doctor_detail_translation']);
+                             $query->with(['comments_doctor']);
+                      }])->where('id',$data['doctor_id'])->get();
+   
+    $doctor_data['consulation_count']=Consulation::where('doctor_id',$data['doctor_id'])->count();
+   return($doctor_data);
   }
 
 }
