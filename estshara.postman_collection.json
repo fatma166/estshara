@@ -103,7 +103,7 @@
 							"formdata": [
 								{
 									"key": "phone",
-									"value": "+2001022752344",
+									"value": "20124575743800",
 									"type": "default"
 								},
 								{
@@ -285,41 +285,16 @@
 			"item": [
 				{
 					"name": "latest specialization",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "limit",
-									"value": "",
-									"type": "default",
-									"disabled": true
-								}
-							]
-						},
 						"url": {
-							"raw": "{{url}}specialize/last-spcializations/1",
+							"raw": "{{url}}specialize/last-spcializations",
 							"host": [
 								"{{url}}specialize"
 							],
 							"path": [
-								"last-spcializations",
-								"1"
+								"last-spcializations"
 							]
 						}
 					},
@@ -432,12 +407,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}consulation/details/4",
+							"raw": "{{url}}consulation/list/all/0/1/4",
 							"host": [
 								"{{url}}consulation"
 							],
 							"path": [
-								"details",
+								"list",
+								"all",
+								"0",
+								"1",
 								"4"
 							]
 						}
@@ -504,6 +482,39 @@
 							],
 							"path": [
 								"send-message"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consulation drugs",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}consulation/get-consulat-drags?consulation_id=4",
+							"host": [
+								"{{url}}consulation"
+							],
+							"path": [
+								"get-consulat-drags"
+							],
+							"query": [
+								{
+									"key": "consulation_id",
+									"value": "4"
+								}
 							]
 						}
 					},
@@ -621,7 +632,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}doctor/list?governorate_id&city_id=1&degree&fees_range=0-30&gender=null&online_flag=1",
+							"raw": "{{url}}doctor/list?governorate_id&city_id=1&degree&fees_range=1-340&gender=null&online_flag=1",
 							"host": [
 								"{{url}}doctor"
 							],
@@ -643,7 +654,7 @@
 								},
 								{
 									"key": "fees_range",
-									"value": "0-30"
+									"value": "1-340"
 								},
 								{
 									"key": "gender",
@@ -652,6 +663,89 @@
 								{
 									"key": "online_flag",
 									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get appoints",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "report doctor",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "message",
+									"value": "hgfhfghfg",
+									"type": "default"
+								},
+								{
+									"key": "doctor_id",
+									"value": "1",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}doctor/report-doctor",
+							"host": [
+								"{{url}}doctor"
+							],
+							"path": [
+								"report-doctor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "doctor_details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}doctor/doctor-details?doctor_id=2",
+							"host": [
+								"{{url}}doctor"
+							],
+							"path": [
+								"doctor-details"
+							],
+							"query": [
+								{
+									"key": "doctor_id",
+									"value": "2"
 								}
 							]
 						}
@@ -725,6 +819,245 @@
 			"item": [
 				{
 					"name": "editProfile",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatar",
+									"value": "",
+									"type": "default",
+									"disabled": true
+								},
+								{
+									"key": "firstname",
+									"value": "h",
+									"type": "default",
+									"disabled": true
+								},
+								{
+									"key": "phone",
+									"value": "124575743800",
+									"type": "default"
+								},
+								{
+									"key": "country_code",
+									"value": "20",
+									"type": "default"
+								},
+								{
+									"key": "email",
+									"value": "NULL",
+									"description": "FDFDFD",
+									"type": "default",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "3334",
+									"type": "default",
+									"disabled": true
+								},
+								{
+									"key": "birthdate",
+									"value": "null",
+									"type": "default",
+									"disabled": true
+								},
+								{
+									"key": "gender",
+									"value": "null",
+									"type": "default",
+									"disabled": true
+								},
+								{
+									"key": "lastname",
+									"value": "null",
+									"type": "default",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}patient/edit-profile",
+							"host": [
+								"{{url}}patient"
+							],
+							"path": [
+								"edit-profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add patient details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "weight",
+									"value": "63",
+									"type": "default"
+								},
+								{
+									"key": "length",
+									"value": "165",
+									"type": "default"
+								},
+								{
+									"key": "rh",
+									"value": "o2",
+									"type": "default"
+								},
+								{
+									"key": "smoking",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "alchole",
+									"value": "0",
+									"type": "default"
+								},
+								{
+									"key": "Marital_status",
+									"value": "1",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}patient/edit-MidicalDetails",
+							"host": [
+								"{{url}}patient"
+							],
+							"path": [
+								"edit-MidicalDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editCheckupDetails",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "attach[]",
+									"type": "file",
+									"src": [
+										"/C:/Users/Roka/Desktop/77.PNG",
+										"/C:/Users/Roka/Desktop/6767.txt"
+									]
+								},
+								{
+									"key": "date",
+									"value": "2022-01-11 ",
+									"type": "default",
+									"disabled": true
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}patient/edit-CheckupDetails",
+							"host": [
+								"{{url}}patient"
+							],
+							"path": [
+								"edit-CheckupDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "chronic desieses",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -742,59 +1075,160 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "avatar",
-									"value": "",
+									"key": "name",
+									"value": "rr",
 									"type": "default"
 								},
 								{
-									"key": "firstname",
-									"value": "",
+									"key": "known_date",
+									"value": "2022-02-17",
 									"type": "default"
 								},
 								{
-									"key": "phone",
-									"value": "",
-									"type": "default"
-								},
-								{
-									"key": "country_code",
-									"value": "",
-									"type": "default"
-								},
-								{
-									"key": "email",
-									"value": "",
-									"type": "default"
-								},
-								{
-									"key": "password",
-									"value": "",
-									"type": "default"
-								},
-								{
-									"key": "birthdate",
-									"value": "",
-									"type": "default"
-								},
-								{
-									"key": "gender",
-									"value": "",
-									"type": "default"
-								},
-								{
-									"key": "lastname",
+									"key": "notes",
 									"value": "",
 									"type": "default"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{url}}patient/edit-profile",
+							"raw": "{{url}}patient/edit-chronicDiseases",
 							"host": [
 								"{{url}}patient"
 							],
 							"path": [
-								"edit-profile"
+								"edit-chronicDiseases"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "patient Drugs",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "uiuiui",
+									"type": "default"
+								},
+								{
+									"key": "start_date",
+									"value": "2022-10-20",
+									"type": "default"
+								},
+								{
+									"key": "note",
+									"value": "uyutyutyry",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}patient/edit-editdrags",
+							"host": [
+								"{{url}}patient"
+							],
+							"path": [
+								"edit-editdrags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit-genaticdiseases تاريخ العائله المرضي",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "relation",
+									"value": "sister",
+									"type": "default"
+								},
+								{
+									"key": "diseases_name",
+									"value": "ohn",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}patient/edit-genaticdiseases",
+							"host": [
+								"{{url}}patient"
+							],
+							"path": [
+								"edit-genaticdiseases"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SurgeriesRequest العمليات الجراحيه",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "hgf",
+									"type": "default"
+								},
+								{
+									"key": "date",
+									"value": "2022-09-12",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}patient/edit-patient_surgeries",
+							"host": [
+								"{{url}}patient"
+							],
+							"path": [
+								"edit-patient_surgeries"
 							]
 						}
 					},

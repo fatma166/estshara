@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Api\AuthUserRequest;
 use App\Http\Requests\Api\RegisterRequest;
+use App\Http\Requests\Api\VerifyRequest;
 use App\Modules\Core\HTTPResponseCodes;
 
 use App\Http\Resources\UserCollection;
@@ -58,110 +59,123 @@ class AuthUserController extends Controller
         ],HTTPResponseCodes::Sucess['code']);
 
     }
-public function register(Request $request) {
+/**
+ * 
+ * 
+ */
+public function register(RegisterRequest $request) {
 
+    $req= Validator::make($request->all(), [
+        'name' => 'required|min:4',
+        'last_name' => 'required|min:4',
+        'phone' => 'required|unique:users|min:5',
+        'password' => 'required|min:6',
+        'birth_date' => 'required|date',
+        'role_id'   => 'required']
+        );
 
-$req= Validator::make($request->all(), [
-    'name' => 'required|min:4',
-    'last_name' => 'required|min:4',
-    'phone' => 'required|unique:users|min:5',
-    'password' => 'required|min:6',
-    'birth_date' => 'required|date',
-    'role_id'   => 'required']
-     );
-     if($req->fails()){
-        return response()->json([
-            'status' =>HTTPResponseCodes::UnAuth['status'],
-            'data' =>"",
-            'message' => HTTPResponseCodes::UnAuth['message'],
-            ],HTTPResponseCodes::UnAuth['code']);
-     }
-        $validated = $request->all();
-        /* Get credentials from .env */
-        $token = getenv("TWILIO_AUTH_TOKEN");
-        $twilio_sid = getenv("TWILIO_SID");
-        $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
-        $twilio = new Client($twilio_sid, $token);
-        $twilio->verify->v2->services($twilio_verify_sid)->verifications->create($validated['phone'], "sms");
-        $validated['password']= Hash::make($validated['password']);
-        $user= User::create($validated);
-        //$token = Auth::login($user);
-        return response()->json([
-                'status' => HTTPResponseCodes::Sucess['status'],
-                'message' => HTTPResponseCodes::Sucess['message'],
-                'data' => $user,
-                //'token' => $token,
-
-        ],HTTPResponseCodes::Sucess['code']);
-        //return redirect()->route('verify')->with(['phone' => $validated['phone']]);
-    
+        if($req->fails()){
+            return response()->json([
+                'status' =>HTTPResponseCodes::UnAuth['status'],
+                'data' =>"",
+                'message' => HTTPResponseCodes::UnAuth['message'],
+                ],HTTPResponseCodes::UnAuth['code']);
         }
-        protected function verify(Request $request)
-        {
-            $data = $request->validate([
-                'verification_code' => ['required', 'numeric'],
-                'phone' => ['required', 'string'],
-            ]);
-           
-            try{
-               
+            $validated = $request->all();
+            $validated ['active']=0;
             /* Get credentials from .env */
             $token = getenv("TWILIO_AUTH_TOKEN");
             $twilio_sid = getenv("TWILIO_SID");
             $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
             $twilio = new Client($twilio_sid, $token);
-            $verification = $twilio->verify->v2->services($twilio_verify_sid)
-                ->verificationChecks
-                ->create(['to'=>$data['phone'],'code'=>$data['verification_code']]);
-         
-                if ($verification->valid) {
-                    $user = tap(User::where('phone', $data['phone']))->update(['phone_isverified' => true,'active'=>1]);
-                    /* Authenticate user */
-                    $token=Auth::login($user->first());
-                    return response()->json([
-                        'status' => HTTPResponseCodes::Sucess['status'],
-                        'message' => HTTPResponseCodes::Sucess['message'],
-                        'data' => $user,
-                        'token' => $token,
-        
-                ],HTTPResponseCodes::Sucess['code']);  
-                }  
-            }catch(\Exception $e){
-             
-                if($e->getCode()==404||$e->getCode()==20404){
-                        return response()->json([
-                            'status' =>HTTPResponseCodes::InvalidArguments['status'],
-                            'message' => HTTPResponseCodes::InvalidArguments['message'],
-                            'data' => "",
-                            'token' => "",
-            
-                    ],HTTPResponseCodes::InvalidArguments['code']); 
-                }
-            }
-
+            $twilio->verify->v2->services($twilio_verify_sid)->verifications->create($validated['phone'], "sms");
+            $validated['password']= Hash::make($validated['password']);
+            $user= User::create($validated);
+            //$token = Auth::login($user);
             return response()->json([
-                'status' => HTTPResponseCodes::BadRequest['status'],
-                'message' => HTTPResponseCodes::BadRequest['message'],
-                'data' => "",
-                'token' => "",
-                                                        
-        ], HTTPResponseCodes::BadRequest['code']);
-               // return redirect()->route('home')->with(['message' => 'Phone number verified']);
-            
-           /* ;*/
-          //  return back()->with(['phone' => $data['phone'], 'error' => 'Invalid verification code entered!']);
+                    'status' => HTTPResponseCodes::Sucess['status'],
+                    'message' => HTTPResponseCodes::Sucess['message'],
+                    'data' => $user,
+                    //'token' => $token,
+
+            ],HTTPResponseCodes::Sucess['code']);
+            //return redirect()->route('verify')->with(['phone' => $validated['phone']]);
+        
         }
     
-        public function logout()
-        {
-            Auth::logout();
-            return response()->json([
-            'status' => HTTPResponseCodes::Sucess['status'],
-            'message' =>HTTPResponseCodes::Sucess['message'],
-            'data'=>""
-            ],HTTPResponseCodes::Sucess['code']);
+    /**
+     * 
+     */
+    protected function verify(VerifyRequest $request)
+    {
+       /* $data = $request->validate([
+            'verification_code' => ['required', 'numeric'],
+            'phone' => ['required', 'string'],
+        ]);*/
+        
+        try{
+            
+        /* Get credentials from .env */
+        $token = getenv("TWILIO_AUTH_TOKEN");
+        $twilio_sid = getenv("TWILIO_SID");
+        $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
+        $twilio = new Client($twilio_sid, $token);
+        $verification = $twilio->verify->v2->services($twilio_verify_sid)
+            ->verificationChecks
+            ->create(['to'=>$data['phone'],'code'=>$data['verification_code']]);
+        
+            if ($verification->valid) {
+                $user = tap(User::where('phone', $data['phone']))->update(['phone_isverified' => true,'active'=>1]);
+                /* Authenticate user */
+                $token=Auth::login($user->first());
+                return response()->json([
+                    'status' => HTTPResponseCodes::Sucess['status'],
+                    'message' => HTTPResponseCodes::Sucess['message'],
+                    'data' => $user,
+                    'token' => $token,
+    
+            ],HTTPResponseCodes::Sucess['code']);  
+            }  
+        }catch(\Exception $e){
+            
+            if($e->getCode()==404||$e->getCode()==20404){
+                    return response()->json([
+                        'status' =>HTTPResponseCodes::InvalidArguments['status'],
+                        'message' => HTTPResponseCodes::InvalidArguments['message'],
+                        'data' => "",
+                        'token' => "",
+        
+                ],HTTPResponseCodes::InvalidArguments['code']); 
+            }
         }
 
+        return response()->json([
+            'status' => HTTPResponseCodes::BadRequest['status'],
+            'message' => HTTPResponseCodes::BadRequest['message'],
+            'data' => "",
+            'token' => "",
+                                                    
+    ], HTTPResponseCodes::BadRequest['code']);
+            // return redirect()->route('home')->with(['message' => 'Phone number verified']);
+        
+        /* ;*/
+        //  return back()->with(['phone' => $data['phone'], 'error' => 'Invalid verification code entered!']);
+    }
+    /**
+     * 
+     */
+    public function logout()
+    {
+        Auth::logout();
+        return response()->json([
+        'status' => HTTPResponseCodes::Sucess['status'],
+        'message' =>HTTPResponseCodes::Sucess['message'],
+        'data'=>""
+        ],HTTPResponseCodes::Sucess['code']);
+    }
+    /**
+     * 
+     */
     public function refresh()
     {
             return response()->json([
@@ -172,7 +186,9 @@ $req= Validator::make($request->all(), [
 
             ],HTTPResponseCodes::Sucess['code']);
     }
-
+    /**
+     * 
+     */
     public function get_roles(){
       
         $data=Role::all();
@@ -182,6 +198,9 @@ $req= Validator::make($request->all(), [
             'data' => $data,
             ],HTTPResponseCodes::Sucess['code']);
     }
+    /**
+     * 
+     */
     public function get_countries($locale=1,$id=null){
     
         //print_r(Country::find(1)->country_translations); exit;
@@ -212,7 +231,9 @@ $req= Validator::make($request->all(), [
             ],HTTPResponseCodes::Sucess['code']);
     }
 
-
+    /**
+     * 
+     */
    public function forgetPassword(Request $request){
 
         $phoneNum =$request['phone'];
@@ -240,6 +261,9 @@ $req= Validator::make($request->all(), [
         }
 
     }
+    /**
+     * 
+     */
     public function validatePassowrd(Request $request){
         
         $req=Validator::make($request->all(),['token'=>'required','password'=>'required|min:6',
@@ -284,11 +308,16 @@ $req= Validator::make($request->all(), [
        
     }
 }
+/**
+ * 
+ */
   protected function changePassword($phone,$newpassword){
     User::where('phone_number', '=', $phoneNum)->update(array('password'=>Hash::make($newpassword)));
   }
 
-
+/**
+ * 
+ */
   protected function getData(){
     
    $user= Auth::guard('api')->user();

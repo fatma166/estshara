@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use App\Modules\Core\HTTPResponseCodes;
-class RegisterRequest extends FormRequest
+class VerifyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,21 +25,15 @@ class RegisterRequest extends FormRequest
      */
     public function rules()
     {
-      
         return [
-            'name' => 'required|min:4',
-            'last_name' => 'required|min:4',
-            'phone' => 'required|unique:users|min:5',
-            'password' => 'required|min:6',
-            'birth_date' => 'required|date',
-            'role_id'   => 'required',
-            'city_id' =>'required'
-          
-           
-        ];
+            'verification_code' => 'required|numeric',
+            'phone' => 'required|string',
         
+        ];
     }
-
+    /**
+     * 
+     */
     public function failedValidation(Validator $validator){
         throw new HttpResponseException(
           
@@ -49,21 +43,17 @@ class RegisterRequest extends FormRequest
           'message' =>HTTPResponseCodes::Validation['message'],
           ],HTTPResponseCodes::Validation['code']));
    
+    }
+    /**
+     * 
+     */
+    public function messages(){
+        return[
+                'verification_code.required'=>'verification_code is reuired',
+                'verification_code.numeric'=>'verification_code is numeric',
+                'phone.required'=>'phone is required'
+        ];
+    }
 
 
-  }
-
-  public function messages(){
-      return[
-            'name.required' => 'name is required',
-            'last_name.required' => 'last_name is required',
-            'phone.required' => 'phone required',
-            'password.required' => 'password required',
-            'birth_date.required' => 'birth_date required',
-            'role_id.required'   => 'role_id required',
-            'city_id.required' =>'city_id required'
-             
-      ];
-  }
-    
-}
+  } 
