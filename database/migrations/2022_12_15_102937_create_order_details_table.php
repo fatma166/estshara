@@ -15,7 +15,7 @@ class CreateOrderDetailsTable extends Migration
     {
         Schema::create('order_details', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->string('order_number', 200)->index('order_number');
+            $table->string('order_number', 200)->unique('order_number_2');
             $table->string('name', 100);
             $table->string('mobile', 20);
             $table->string('mobile2', 20);
@@ -23,7 +23,7 @@ class CreateOrderDetailsTable extends Migration
             $table->text('notes');
             $table->string('district_name', 200);
 
-            $table->unique(['order_number'], 'order_number_2');
+            $table->index(['order_number'], 'order_number');
         });
     }
 

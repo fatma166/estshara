@@ -15,7 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('order_number', 200)->index('order_number');
+            $table->string('order_number', 200)->unique('order_number_2');
             $table->integer('user_id')->nullable()->index('user_id_index');
             $table->integer('session_id')->nullable();
             $table->integer('token')->nullable();
@@ -35,7 +35,7 @@ class CreateOrdersTable extends Migration
             $table->string('zone_name', 50)->nullable();
             $table->string('district_name', 100)->nullable();
 
-            $table->unique(['order_number'], 'order_number_2');
+            $table->index(['order_number'], 'order_number');
         });
     }
 

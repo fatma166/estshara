@@ -14,13 +14,13 @@ class CreateDoctorWorksTable extends Migration
     public function up()
     {
         Schema::create('doctor_works', function (Blueprint $table) {
-            $table->integer('provider_id')->index('hospital_id');
+            $table->integer('provider_id')->unique('hospital_id_2');
             $table->integer('doctor_id')->index('doctor_id');
             $table->date('from');
             $table->date('to');
             $table->integer('id', true);
 
-            $table->unique(['provider_id'], 'hospital_id_2');
+            $table->index(['provider_id'], 'hospital_id');
         });
     }
 
