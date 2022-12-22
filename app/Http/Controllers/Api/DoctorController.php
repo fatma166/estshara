@@ -68,6 +68,27 @@ class DoctorController extends Controller
      public function doctor_details(DoctorDetailsRequest $request){
         $doctor=new DoctorRepositories;
         $doctor=$doctor->doctor_details($request);
-        print_r($doctor); exit;
+        $data=new DectorDetailsResource($doctor);
+        return response()->json([
+            'status' => HTTPResponseCodes::Sucess['status'],
+            'data' =>$data,
+
+            ], HTTPResponseCodes::Sucess['code']);
+  
+     //  print_r($doctor); exit;
+    }
+
+    public function doctor_appoint($request){
+
+        $doctor=new DoctorRepositories;
+        $doctor=$doctor->doctor_appoint($request);
+        $data=new DectorDetailsResource($doctor);
+        return response()->json([
+            'status' => HTTPResponseCodes::Sucess['status'],
+            'data' =>$data,
+
+            ], HTTPResponseCodes::Sucess['code']);
+  
+    
     }
 }

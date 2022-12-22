@@ -54,6 +54,9 @@ public function null_formatting($datas){
    }
 
 }
+public function appointFormmating($appoint){
+   return json_encode($appoint);
+}
 
 
 

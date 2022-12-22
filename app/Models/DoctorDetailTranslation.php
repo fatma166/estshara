@@ -14,13 +14,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property int $locale
  * @property int $docor_detail_id
- * @property int $address
- * @property int $work_exeperinace
- * @property int $work_details
- * @property int $university
- * @property int $collage
+ * @property string $address
+ * @property string $work_exeperinace
+ * @property string $work_details
+ * @property string $university
+ * @property string $collage
  * @property int $graduation_year
- * @property int $graduation_grade
+ * @property string $graduation_grade
  * 
  * @property DoctorDetail $doctor_detail
  *
@@ -36,13 +36,13 @@ class DoctorDetailTranslation extends Model
 		'id' => 'int',
 		'locale' => 'int',
 		'docor_detail_id' => 'int',
-		'address' => 'int',
-		'work_exeperinace' => 'int',
-		'work_details' => 'int',
-		'university' => 'int',
-		'collage' => 'int',
+		'address' => 'string',
+		'work_exeperinace' => 'string',
+		'work_details' => 'string',
+		'university' => 'string',
+		'collage' => 'string',
 		'graduation_year' => 'int',
-		'graduation_grade' => 'int'
+		'graduation_grade' => 'string'
 	];
 
 	protected $fillable = [

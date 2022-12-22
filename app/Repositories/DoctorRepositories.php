@@ -105,12 +105,15 @@ class DoctorRepositories implements DoctorInterface{
                              $query->with(['specialization'=>function($query) use($request){
                                       $query->with('specialization_translations');
                              }]);
+                             $query->with(['appointment']);
                              $query->with(['doctor_detail_translation']);
                              $query->with(['comments_doctor']);
-                      }])->where('id',$data['doctor_id'])->get();
+                      }])->where('id',$data['doctor_id'])->first();
    
     $doctor_data['consulation_count']=Consulation::where('doctor_id',$data['doctor_id'])->count();
+    
    return($doctor_data);
   }
+  
 
 }
