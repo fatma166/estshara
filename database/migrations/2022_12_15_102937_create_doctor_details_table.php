@@ -22,6 +22,7 @@ class CreateDoctorDetailsTable extends Migration
             $table->integer('experience_years');
             $table->integer('provider_id');
             $table->mediumText('instractions');
+            $table->text('media_path')->nullable();
             $table->json('prices');
         });
     }

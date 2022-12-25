@@ -6,7 +6,7 @@ use App\Models\User;
 use  App\Models\Role;
 use  App\Models\Report;
 use  App\Models\Consulation;
-
+use  App\models\Fav_doctor;
 use Illuminate\Support\Facades\DB;
 
 class DoctorRepositories implements DoctorInterface{
@@ -29,11 +29,15 @@ class DoctorRepositories implements DoctorInterface{
                     }])->get(); /*,'comments_doctor'=>function($query){$query->addSelect(DB::raw('count(doctor_id)'),DB::raw('SUM(grade)'));}])->get();
                   // $dd= $data->doctor_detail()->get();*/
 
-             //  DB::enableQueryLog();
+           //   DB::enableQueryLog();
                   $data=User::
                     where('role_id',$role->id)
+                   ->where (function($query) use($request){
+                    if(!empty($request['fav_doctors']))
+                        $query->whereIn('id',$request['fav_doctors']);
+                    })
                     ->where (function($query) use($gender){
-                       if($gender!='null')
+                       if($gender!='null'&& $gender !=null)
                           $query->where('gender',$gender);
                     })
                   ->with([
@@ -41,7 +45,12 @@ class DoctorRepositories implements DoctorInterface{
                        $query->with(['comments_doctor'=>function($query){$query->addSelect(DB::raw('count(doctor_id) as doctor_id'),DB::raw('SUM(grade) as grade'))->groupBy('doctor_id');}]);
                  
                        $query->with('specialization.specialization_translations');
-                       $query->where('city_id',$request['city_id']);
+                       
+                       $query->where (function($query) use($request){
+                        if($request['city_id']!='null'&& $request['city_id'] !=null)
+                            $query->where('city_id',$request['city_id']);
+                        });
+                      
                        
 
                 },'doctor_detail.doctor_provider.services'=>function($query) use($request){
@@ -72,7 +81,7 @@ class DoctorRepositories implements DoctorInterface{
             else
                 $data=$data->get();
 
-           // dd(DB::getQueryLog());    
+          // dd(DB::getQueryLog());    
          return($data);
     
    }
@@ -102,6 +111,7 @@ class DoctorRepositories implements DoctorInterface{
   public function doctor_details($request){
     $data=$request->all();
     $doctor_data=User::with(['doctor_detail'=> function ($query) use ($request) {
+                             
                              $query->with(['specialization'=>function($query) use($request){
                                       $query->with('specialization_translations');
                              }]);
@@ -114,6 +124,25 @@ class DoctorRepositories implements DoctorInterface{
     
    return($doctor_data);
   }
+  public function getFav($user_id){
+     return(Fav_doctor::select('doctor_id')->where('patient_id',$user_id)->get()->toArray());
+
+  }
   
+ public function add_fav_Doctor($request){
+   
+   $fav= new Fav_doctor;
+   $fav->doctor_id=$request['doctor_id'];
+   $fav->patient_id=$request['patient_id'];
+   $fav->save();
+
+ }
+ public function remove_fav_Doctor($request){
+
+  $fav= new Fav_doctor;
+  $fav->doctor_id=$request['doctor_id'];
+  $fav->patient_id=$request['patient_id'];
+  $fav->delete();
+ }
 
 }

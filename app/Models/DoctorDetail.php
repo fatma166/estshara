@@ -41,7 +41,9 @@ class DoctorDetail extends Model
 		'experience_years' => 'int',
 		'provider_id'=>'int',
 		'online_flag'=>'int',
-		'prices'=>'json'
+		'prices'=>'json',
+		'media_path'=>'string',
+		'instractions'=>'string'
 	];
 
 	protected $fillable = [
@@ -54,7 +56,8 @@ class DoctorDetail extends Model
 		'provider_id',
 		'online_flag',
 		'instractions',
-		'prices'
+		'prices',
+		'media_path'
 	];
 
 	public function appointment()
