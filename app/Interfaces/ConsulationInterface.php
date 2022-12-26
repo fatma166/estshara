@@ -13,5 +13,5 @@ interface ConsulationInterface
     public function consulate_note($data);
     public function consulat_drags($request);
    
-
+    
 }

@@ -58,4 +58,11 @@ class SpeciCustomQuestion extends Model
 	{
 		return $this->hasOne(SpeciCustomQuestionAnswer::class, 'question_id');
 	}
+
+	
+	public function speci_custom_question_translation()
+	{
+		return $this->hasOne(SpeciCustomQuestionTranslaion::class, 'spaci_custom_question_id');
+	}
+
 }
