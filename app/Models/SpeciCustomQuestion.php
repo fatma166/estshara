@@ -53,10 +53,9 @@ class SpeciCustomQuestion extends Model
 	{
 		return $this->hasOne(PatientCustomAnswer::class, 'custom_question_id');
 	}
-
 	public function speci_custom_question_answer()
 	{
-		return $this->hasOne(SpeciCustomQuestionAnswer::class, 'question_id');
+		return $this->hasMany(SpeciCustomQuestionAnswer::class,'question_id');
 	}
 
 	

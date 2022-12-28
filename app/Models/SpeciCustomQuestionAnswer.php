@@ -38,4 +38,10 @@ class SpeciCustomQuestionAnswer extends Model
 	{
 		return $this->belongsTo(SpeciCustomQuestion::class, 'question_id');
 	}
+	
+	
+	public function speci_custom_answer_translation()
+	{
+		return $this->hasOne(SpeciCustomQuestionAnswerTranslation::class,'answer_id');
+	}
 }

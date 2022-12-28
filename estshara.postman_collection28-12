@@ -1,0 +1,1540 @@
+{
+	"info": {
+		"_postman_id": "1372c40d-1fa5-424d-b54d-c72cfb9f1017",
+		"name": "estshara",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "fatmaapi",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "gh_7",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "+2001022752344",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								},
+								{
+									"key": "birth_date",
+									"value": "1990-06-16",
+									"type": "text"
+								},
+								{
+									"key": "role_id",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "city_id",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "active",
+									"value": "0",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}auth/register",
+							"host": [
+								"{{url}}auth"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-roles",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}auth/get-roles",
+							"host": [
+								"{{url}}auth"
+							],
+							"path": [
+								"get-roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "phone",
+									"value": "20124575743800",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}auth/login",
+							"host": [
+								"{{url}}auth"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "countries",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}auth/get-countries/1/1",
+							"host": [
+								"{{url}}auth"
+							],
+							"path": [
+								"get-countries",
+								"1",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "varfy phone number",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "verification_code",
+									"value": "175055",
+									"type": "default"
+								},
+								{
+									"key": "phone",
+									"value": "+2001022752344",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/auth/forgetPassword",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"forgetPassword"
+							],
+							"query": [
+								{
+									"key": "phone",
+									"value": "+2001022752344",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "forgetpassword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "phone",
+									"value": "+2001022752344",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/auth/forgetPassword",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"forgetPassword"
+							],
+							"query": [
+								{
+									"key": "phone",
+									"value": "+2001022752344",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "validatePassowrd",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "token",
+									"value": "769909",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "12345678",
+									"type": "default"
+								},
+								{
+									"key": "confirmpass",
+									"value": "12345678",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}auth/validatePassowrd",
+							"host": [
+								"{{url}}auth"
+							],
+							"path": [
+								"validatePassowrd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "userData",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}auth/get-user-data",
+							"host": [
+								"{{url}}auth"
+							],
+							"path": [
+								"get-user-data"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "specialization",
+			"item": [
+				{
+					"name": "latest specialization",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}specialize/last-spcializations",
+							"host": [
+								"{{url}}specialize"
+							],
+							"path": [
+								"last-spcializations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-specification-question",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}specialize/get-specification-question?doctor_id=2&start=0&end=5&special_id=1",
+							"host": [
+								"{{url}}specialize"
+							],
+							"path": [
+								"get-specification-question"
+							],
+							"query": [
+								{
+									"key": "doctor_id",
+									"value": "2"
+								},
+								{
+									"key": "start",
+									"value": "0"
+								},
+								{
+									"key": "end",
+									"value": "5"
+								},
+								{
+									"key": "special_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}specialize/last-spcializations",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}specialize/last-spcializations",
+							"host": [
+								"{{url}}specialize"
+							],
+							"path": [
+								"last-spcializations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add Patient answer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "type",
+									"value": "custom",
+									"description": "custom,spacialize",
+									"type": "default"
+								},
+								{
+									"key": "answer_id",
+									"value": "1",
+									"description": "answer_id or answer_text required",
+									"type": "default"
+								},
+								{
+									"key": "question_id",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "answer_text",
+									"value": "",
+									"description": "answer_id or answer_text required",
+									"type": "default",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}specialize/add-patient-answer",
+							"host": [
+								"{{url}}specialize"
+							],
+							"path": [
+								"add-patient-answer"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "consultation",
+			"item": [
+				{
+					"name": "list_consultation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}consulation/list/all/0/1",
+							"host": [
+								"{{url}}consulation"
+							],
+							"path": [
+								"list",
+								"all",
+								"0",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cancle consaltation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}consulation/cancle/4",
+							"host": [
+								"{{url}}consulation"
+							],
+							"path": [
+								"cancle",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_invoice",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}consulation/invoice/4",
+							"host": [
+								"{{url}}consulation"
+							],
+							"path": [
+								"invoice",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}consulation/list/all/0/1/4",
+							"host": [
+								"{{url}}consulation"
+							],
+							"path": [
+								"list",
+								"all",
+								"0",
+								"1",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "chat_notes",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "send-message",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "message",
+									"value": "رساله 1",
+									"type": "default"
+								},
+								{
+									"key": "to",
+									"value": "2",
+									"type": "default"
+								},
+								{
+									"key": "consalt_id",
+									"value": "4",
+									"type": "default"
+								},
+								{
+									"key": "attach[]",
+									"type": "file",
+									"src": "/C:/Users/Roka/Desktop/77.PNG"
+								},
+								{
+									"key": "attach[]",
+									"type": "file",
+									"src": "/C:/Users/Roka/Desktop/Capture66.PNG"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consulation drugs",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}consulation/get-consulat-drags?consulation_id=4",
+							"host": [
+								"{{url}}consulation"
+							],
+							"path": [
+								"get-consulat-drags"
+							],
+							"query": [
+								{
+									"key": "consulation_id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "doctor",
+			"item": [
+				{
+					"name": "listonline",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}doctor/list/online",
+							"host": [
+								"{{url}}doctor"
+							],
+							"path": [
+								"list",
+								"online"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "favourite doctors",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}doctor/list/fav",
+							"host": [
+								"{{url}}doctor"
+							],
+							"path": [
+								"list",
+								"fav"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "count online doctors",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{url}}doctor/list/online",
+							"host": [
+								"{{url}}doctor"
+							],
+							"path": [
+								"list",
+								"online"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list ALL",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}doctor/list",
+							"host": [
+								"{{url}}doctor"
+							],
+							"path": [
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "adavanced doctor serach",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}doctor/list?governorate_id&city_id=1&degree&fees_range=1-340&gender=null&online_flag=1",
+							"host": [
+								"{{url}}doctor"
+							],
+							"path": [
+								"list"
+							],
+							"query": [
+								{
+									"key": "governorate_id",
+									"value": null
+								},
+								{
+									"key": "city_id",
+									"value": "1"
+								},
+								{
+									"key": "degree",
+									"value": null
+								},
+								{
+									"key": "fees_range",
+									"value": "1-340"
+								},
+								{
+									"key": "gender",
+									"value": "null"
+								},
+								{
+									"key": "online_flag",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get appoints",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "report doctor",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "message",
+									"value": "hgfhfghfg",
+									"type": "default"
+								},
+								{
+									"key": "doctor_id",
+									"value": "1",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}doctor/report-doctor",
+							"host": [
+								"{{url}}doctor"
+							],
+							"path": [
+								"report-doctor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "doctor_details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}doctor/doctor-details?doctor_id=2",
+							"host": [
+								"{{url}}doctor"
+							],
+							"path": [
+								"doctor-details"
+							],
+							"query": [
+								{
+									"key": "doctor_id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove-fav-Doctor",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "doctor_id",
+									"value": "",
+									"type": "default"
+								},
+								{
+									"key": "patient_id",
+									"value": "",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}doctor/remove_fav_Doctor",
+							"host": [
+								"{{url}}doctor"
+							],
+							"path": [
+								"remove_fav_Doctor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add-fav-Doctor",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "doctor_id",
+									"value": "3",
+									"type": "default"
+								},
+								{
+									"key": "patient_id",
+									"value": "",
+									"type": "default",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}doctor/add-fav-Doctor",
+							"host": [
+								"{{url}}doctor"
+							],
+							"path": [
+								"add-fav-Doctor"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "return_select",
+			"item": [
+				{
+					"name": "goverenment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}place/get-government",
+							"host": [
+								"{{url}}place"
+							],
+							"path": [
+								"get-government"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cities",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}place/get-city/1",
+							"host": [
+								"{{url}}place"
+							],
+							"path": [
+								"get-city",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "patient",
+			"item": [
+				{
+					"name": "editProfile",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatar",
+									"value": "",
+									"type": "default",
+									"disabled": true
+								},
+								{
+									"key": "firstname",
+									"value": "h",
+									"type": "default",
+									"disabled": true
+								},
+								{
+									"key": "phone",
+									"value": "124575743800",
+									"type": "default"
+								},
+								{
+									"key": "country_code",
+									"value": "20",
+									"type": "default"
+								},
+								{
+									"key": "email",
+									"value": "NULL",
+									"description": "FDFDFD",
+									"type": "default",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "3334",
+									"type": "default",
+									"disabled": true
+								},
+								{
+									"key": "birthdate",
+									"value": "null",
+									"type": "default",
+									"disabled": true
+								},
+								{
+									"key": "gender",
+									"value": "null",
+									"type": "default",
+									"disabled": true
+								},
+								{
+									"key": "lastname",
+									"value": "null",
+									"type": "default",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}patient/edit-profile",
+							"host": [
+								"{{url}}patient"
+							],
+							"path": [
+								"edit-profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add patient details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "weight",
+									"value": "63",
+									"type": "default"
+								},
+								{
+									"key": "length",
+									"value": "165",
+									"type": "default"
+								},
+								{
+									"key": "rh",
+									"value": "o2",
+									"type": "default"
+								},
+								{
+									"key": "smoking",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "alchole",
+									"value": "0",
+									"type": "default"
+								},
+								{
+									"key": "Marital_status",
+									"value": "1",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}patient/edit-MidicalDetails",
+							"host": [
+								"{{url}}patient"
+							],
+							"path": [
+								"edit-MidicalDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editCheckupDetails",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "attach[]",
+									"type": "file",
+									"src": [
+										"/C:/Users/Roka/Desktop/77.PNG",
+										"/C:/Users/Roka/Desktop/6767.txt"
+									]
+								},
+								{
+									"key": "date",
+									"value": "2022-01-11 ",
+									"type": "default",
+									"disabled": true
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}patient/edit-CheckupDetails",
+							"host": [
+								"{{url}}patient"
+							],
+							"path": [
+								"edit-CheckupDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "chronic desieses",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "rr",
+									"type": "default"
+								},
+								{
+									"key": "known_date",
+									"value": "2022-02-17",
+									"type": "default"
+								},
+								{
+									"key": "notes",
+									"value": "",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}patient/edit-chronicDiseases",
+							"host": [
+								"{{url}}patient"
+							],
+							"path": [
+								"edit-chronicDiseases"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "patient Drugs",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "uiuiui",
+									"type": "default"
+								},
+								{
+									"key": "start_date",
+									"value": "2022-10-20",
+									"type": "default"
+								},
+								{
+									"key": "note",
+									"value": "uyutyutyry",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}patient/edit-editdrags",
+							"host": [
+								"{{url}}patient"
+							],
+							"path": [
+								"edit-editdrags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit-genaticdiseases تاريخ العائله المرضي",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "relation",
+									"value": "sister",
+									"type": "default"
+								},
+								{
+									"key": "diseases_name",
+									"value": "ohn",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}patient/edit-genaticdiseases",
+							"host": [
+								"{{url}}patient"
+							],
+							"path": [
+								"edit-genaticdiseases"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SurgeriesRequest العمليات الجراحيه",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "hgf",
+									"type": "default"
+								},
+								{
+									"key": "date",
+									"value": "2022-09-12",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}patient/edit-patient_surgeries",
+							"host": [
+								"{{url}}patient"
+							],
+							"path": [
+								"edit-patient_surgeries"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "intro",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}get-intro",
+					"host": [
+						"{{url}}get-intro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "url",
+			"value": "",
+			"type": "default",
+			"disabled": true
+		},
+		{
+			"key": "url",
+			"value": "",
+			"type": "default"
+		}
+	]
+}

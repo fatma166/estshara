@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Requests\api;
+namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use App\Modules\Core\HTTPResponseCodes;
-class SpecificationQuestionRequest extends FormRequest
+
+class PatientAnswerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,17 +26,20 @@ class SpecificationQuestionRequest extends FormRequest
      */
     public function rules()
     {
+        
         return [
             //
-            'doctor_id'=>'required_without:special_id',
-            'special_id'=>'required_without:doctor_id',
-            'start'=>'required',
-             'end'=>'required'
+            'type'=>'required:string',
+            'question_id'=>'required',
+            'answer_id'=>'required_without:answer_text',
+            'answer_text'=>'required_without:answer_id',
         ];
     }
 
+
     public function failedValidation(Validator $validator){
 
+        
 
         throw new HttpResponseException(
             
@@ -43,18 +47,17 @@ class SpecificationQuestionRequest extends FormRequest
                             'status' =>false,
                             'data' =>$validator->errors(),
                             'message' =>HTTPResponseCodes::Validation['message'],
-            ],HTTPResponseCodes::Validation['code'])
-        );
-        
+            ],HTTPResponseCodes::Validation['code']));
+
     }
 
 
     public function messages(){
-       return[ 
-                 'doctor_id.required'=>'doctor_id is required',
-                 'start.required'=>'start is required',
-                 'end.required'=>'end is required',
-
-             ];
+       return[
+        'type.required'=>'type is required',
+        'question_id.required'=>'required question id',
+        'answer_id.required_without'=>'required_without:answer_text',
+        'answer_text.required_without'=>'required_without:answer_id',
+    ]; 
     }
 }

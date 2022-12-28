@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Route;
         
         route::get('last-spcializations/{limit?}','SpecializationController@lastSpcializationsConsultation');
         route::get('get-specification-question','SpecializationController@get_specification_question');
+        route::post('add-patient-answer','SpecializationController@add_patient_answers');
+
 
 
     });

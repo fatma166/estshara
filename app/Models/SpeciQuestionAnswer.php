@@ -46,6 +46,6 @@ class SpeciQuestionAnswer extends Model
 
 	public function speci_question_answer_translations()
 	{
-		return $this->hasMany(SpeciQuestionAnswerTranslation::class, 'answer_id');
+		return $this->hasone(SpeciQuestionAnswerTranslation::class, 'answer_id');
 	}
 }

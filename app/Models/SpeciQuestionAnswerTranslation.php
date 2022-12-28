@@ -36,10 +36,10 @@ class SpeciQuestionAnswerTranslation extends Model
 		'title'
 	];
 
-	public function speci_question_answer()
+	/*public function speci_question_answer()
 	{
 		return $this->belongsTo(SpeciQuestionAnswer::class, 'answer_id');
-	}
+	}*/
 
 	public function locale()
 	{
