@@ -47,7 +47,6 @@ class SpecializationController extends Controller
         
         $user_data= Auth::guard('api')->user();
         $request['user_id']=$user_data->id;
-        
         $special=new SpecializationRepositry();
         $data=$special->add_patient_answers($request);
         return response()->json([

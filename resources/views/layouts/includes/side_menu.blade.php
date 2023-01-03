@@ -41,37 +41,38 @@
 
             <ul id="side-menu">
 
-                <li class="menu-title">الرئيسية</li>
+                {{--<li class="menu-title">الرئيسية</li>
                 <li>
                     <a href="{{url('login')}}">
                         <i data-feather="log-in"></i>
                         <span> تسجيل الدخول </span>
                     </a>
                 </li>
+                --}}
                 <li>
-                    <a href="{{url('/')}}">
+                    <a href="{{route('admin.index')}}">
                         <i data-feather="airplay"></i>
                         <span class="badge bg-success rounded-pill float-end">4</span>
-                        <span> لوحة التحكم</span>
+                        <span>  {{__('dashboard')}}</</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="#doc" data-bs-toggle="collapse" id="doctors-tour">
                         <i data-feather="calendar"></i>
-                        <span> الاطباء</span>
+                        <span> {{__('doctors')}}</span>
                         <span class="menu-arrow"></span>
                     </a>
                     <div class="collapse" id="doc">
                         <ul class="nav-second-level">
                             <li>
-                                <a href="{{url('doctors/doctor-list')}}">جميع الاطباء</a>
+                                <a href="{{url('admin/doctors/doctor-list')}}"> {{__('all-doctors')}}</a>
                             </li>
                             <li>
-                                <a href="{{url('doctors/add-doctor')}}">اضافة طبيب</a>
+                                <a href="{{url('admin/doctors/add-doctor')}}"> {{__('add-doctor')}}</a>
                             </li>
                             <li>
-                                <a href="{{url('doctors/add-doctor-details')}}">تفاصيل الطبيب</a>
+                                <a href="{{url('admin/doctors/add-doctor-details')}}"> {{__('doctor-details')}}</a>
                             </li>
                         </ul>
                     </div>

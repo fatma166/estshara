@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
+use Illuminate\Support\Facades\App;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,6 +14,7 @@ use App\Http\Controllers\Admin\AuthController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('welcome', function () {
     return view('welcome');
 })->name("users.login.form");
@@ -30,15 +33,16 @@ Route::group(['namespace' =>'Admin'], function() {
 
 
     Route::get('/', function () {
+        App::setLocale('ar');
         return view('admin.index');
-    })->name('index');
+    })->name('admin.index');
 
 
     Route::middleware('auth:admin')->group(function(){
             Route::prefix('doctors')->group(function () {
-                Route::get('doctor-list', function () {
+                Route::get('doctor-list', /*function () {
                     return view('admin.doctors.doctors');
-                });
+                }*/'DoctorController@index')->name('admin.doctors.doctors');
                 Route::get('add-doctor', function () {
                     return view('admin.doctors.add-doc');
                 });
