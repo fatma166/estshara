@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CityResource extends JsonResource
+class RoleResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,10 +15,10 @@ class CityResource extends JsonResource
     public function toArray($request)
     {
        // return parent::toArray($request);
-        return[
-            'id'=>$this->id,
-            'governorate_id'=>$this->governorate_id,
-           'name'=>[]??CityTransResource::collection($this->city_transalations),
-        ];
+       return[
+               'id'=>$this->id??'',
+               'name'=>$this->name??''
+
+       ];
     }
 }

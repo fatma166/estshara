@@ -13,6 +13,8 @@ Route::namespace('Api')->prefix('doctor')->middleware('auth_api')->group (functi
     route::post('report-doctor','DoctorController@reportDoctor');
     route::get('doctor-details','DoctorController@doctor_details');
     route::post('add-fav-Doctor','DoctorController@add_fav_Doctor');
+   // route::post('get-doctor-appoint','DoctorController@doctor_appoint');
+
     route::post('remove-fav-Doctor','DoctorController@remove_fav_Doctor');
 
 

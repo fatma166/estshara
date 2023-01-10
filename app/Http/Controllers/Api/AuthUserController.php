@@ -13,8 +13,9 @@ use App\Http\Requests\Api\AuthUserRequest;
 use App\Http\Requests\Api\RegisterRequest;
 use App\Http\Requests\Api\VerifyRequest;
 use App\Modules\Core\HTTPResponseCodes;
-
-use App\Http\Resources\UserCollection;
+use App\Http\Resources\UserResource;
+use App\Http\Resources\RoleResource;
+use App\Http\Resources\CountryResource;
 use Validator;
 use Illuminate\Support\Facades\DB;
 
@@ -32,29 +33,32 @@ class AuthUserController extends Controller
 
         ]);
         if($req->fails()){
-            return($req->messages());
+          //  return($req->messages());
+          return response()->json([
+            'status' =>HTTPResponseCodes::Validation['status'],
+            'data' =>$req->messages(),
+            'message' =>HTTPResponseCodes::Validation['message'],
+            ],HTTPResponseCodes::Validation['code']);
         }
-
         $validated=$request->all();
-
-
         $token=Auth::guard('api')->attempt($validated);
 
         if (!$token) {
 
                 return response()->json([
                 'status' =>HTTPResponseCodes::UnAuth['status'],
-                'data' =>"",
+                'data' =>[],
                 'message' => HTTPResponseCodes::UnAuth['message'],
                 ],HTTPResponseCodes::UnAuth['code']);
         }
 
         $user = Auth::guard('api')->user();
+        $user['token']= $token;
         return response()->json([
                 'status' =>HTTPResponseCodes::Sucess['status'],
-                'data' =>$user,
+                'data' => new UserResource($user),
                 'message'=> HTTPResponseCodes::Sucess['message'],
-                'token' => $token,
+               
 
         ],HTTPResponseCodes::Sucess['code']);
 
@@ -77,7 +81,7 @@ public function register(RegisterRequest $request) {
         if($req->fails()){
             return response()->json([
                 'status' =>HTTPResponseCodes::UnAuth['status'],
-                'data' =>"",
+                'data' =>[],
                 'message' => HTTPResponseCodes::UnAuth['message'],
                 ],HTTPResponseCodes::UnAuth['code']);
         }
@@ -95,7 +99,7 @@ public function register(RegisterRequest $request) {
             return response()->json([
                     'status' => HTTPResponseCodes::Sucess['status'],
                     'message' => HTTPResponseCodes::Sucess['message'],
-                    'data' => $user,
+                    'data' => new UserResource($user),
                     //'token' => $token,
 
             ],HTTPResponseCodes::Sucess['code']);
@@ -126,13 +130,14 @@ public function register(RegisterRequest $request) {
         
             if ($verification->valid) {
                 $user = tap(User::where('phone', $data['phone']))->update(['phone_isverified' => true,'active'=>1]);
+                $user['token']=$token;
                 /* Authenticate user */
                 $token=Auth::login($user->first());
                 return response()->json([
                     'status' => HTTPResponseCodes::Sucess['status'],
                     'message' => HTTPResponseCodes::Sucess['message'],
-                    'data' => $user,
-                    'token' => $token,
+                    'data' => new UserResource($user),
+                    
     
             ],HTTPResponseCodes::Sucess['code']);  
             }  
@@ -142,8 +147,8 @@ public function register(RegisterRequest $request) {
                     return response()->json([
                         'status' =>HTTPResponseCodes::InvalidArguments['status'],
                         'message' => HTTPResponseCodes::InvalidArguments['message'],
-                        'data' => "",
-                        'token' => "",
+                        'data' => [],
+                      
         
                 ],HTTPResponseCodes::InvalidArguments['code']); 
             }
@@ -152,10 +157,10 @@ public function register(RegisterRequest $request) {
         return response()->json([
             'status' => HTTPResponseCodes::BadRequest['status'],
             'message' => HTTPResponseCodes::BadRequest['message'],
-            'data' => "",
-            'token' => "",
+            'data' => [],
+        
                                                     
-    ], HTTPResponseCodes::BadRequest['code']);
+              ], HTTPResponseCodes::BadRequest['code']);
             // return redirect()->route('home')->with(['message' => 'Phone number verified']);
         
         /* ;*/
@@ -166,11 +171,12 @@ public function register(RegisterRequest $request) {
      */
     public function logout()
     {
-        Auth::logout();
+        echo "kl"; exit;
+        Auth::guard('api')->logout();
         return response()->json([
         'status' => HTTPResponseCodes::Sucess['status'],
         'message' =>HTTPResponseCodes::Sucess['message'],
-        'data'=>""
+        'data'=>[]
         ],HTTPResponseCodes::Sucess['code']);
     }
     /**
@@ -178,12 +184,12 @@ public function register(RegisterRequest $request) {
      */
     public function refresh()
     {
+           $user=Auth::guard('api')->user();
+           $user['token']=Auth::guard('api')->refresh();
             return response()->json([
             'status' => HTTPResponseCodes::Sucess['status'],
-            'data' => Auth::user(),
+            'data' => new UserResource($user),
             'message'=>HTTPResponseCodes::Sucess['message'],
-            'token' => Auth::refresh(),
-
             ],HTTPResponseCodes::Sucess['code']);
     }
     /**
@@ -195,22 +201,24 @@ public function register(RegisterRequest $request) {
         return response()->json([
             'status' =>HTTPResponseCodes::Sucess['status'],
             'message'=>HTTPResponseCodes::Sucess['message'],
-            'data' => $data,
+            'data' => RoleResource::collection($data),
             ],HTTPResponseCodes::Sucess['code']);
     }
     /**
      * 
      */
-    public function get_countries($locale=1,$id=null){
-    
+    public function get_countries(Request $request){
+        $data_request=$request->all();
+        $locale=$data_request['locale']??1;
+       // $id=$data_request['id']??null;
         //print_r(Country::find(1)->country_translations); exit;
        
-      if($id){
+      if(isset($id)){
        
         $data=Country::with(['country_translations' => function($q)
         {
           //  $q->addSelect(['locale','name']);
-        }])->find($id)->toArray();
+        }])->find($id);
        
       //  $data=$data->country_translations->toArray();
      
@@ -218,16 +226,14 @@ public function register(RegisterRequest $request) {
         return response()->json([
             'status' => HTTPResponseCodes::Sucess['status'],
             'message'=>HTTPResponseCodes::Sucess['message'],
-            'data' => $data,
+            'data' =>new CountryResource($data),
             ],HTTPResponseCodes::Sucess['code']);
       }
       $data=Country::with('country_translations')->get()->toArray();
-      $data=$data; 
-
         return response()->json([
             'status' => HTTPResponseCodes::Sucess['status'],
             'message'=>HTTPResponseCodes::Sucess['message'],
-            'data' => $data,
+            'data' =>CountryResource::collection($data),
             ],HTTPResponseCodes::Sucess['code']);
     }
 
@@ -247,7 +253,7 @@ public function register(RegisterRequest $request) {
             return response()->json([
                 'status' => HTTPResponseCodes::Sucess['status'],
                 'message'=>HTTPResponseCodes::Sucess['message'],
-                'data' => $user,
+                'data' => new UserResource($user),
                 ],HTTPResponseCodes::Sucess['code']);
 
         } else
@@ -255,7 +261,7 @@ public function register(RegisterRequest $request) {
             return response()->json([
                 'status' => HTTPResponseCodes::BadRequest['status'],
                 'message'=>HTTPResponseCodes::BadRequest['message'],
-                'data' => "",
+                'data' => [],
                 ],HTTPResponseCodes::BadRequest['code']);
            
         }
@@ -272,7 +278,7 @@ public function register(RegisterRequest $request) {
             return response()->json([
                 'status' => HTTPResponseCodes::UnAuth['status'],
                 'message'=>HTTPResponseCodes::UnAuth['message'],
-                'data' => "",
+                'data' => [],
                 ],HTTPResponseCodes::UnAuth['code']);   
         }
         $token=$request['token'];
@@ -289,7 +295,7 @@ public function register(RegisterRequest $request) {
                 return response()->json([
                     'status' => HTTPResponseCodes::BadRequest['status'],
                     'message'=>HTTPResponseCodes::BadRequest['message'],
-                    'data' => "",
+                    'data' => [],
                     ],HTTPResponseCodes::BadRequest['code']);
             }
           return  response()->json([
@@ -303,7 +309,7 @@ public function register(RegisterRequest $request) {
         return response()->json([
             'status'=> HTTPResponseCodes::BadRequest['status'],
             'message'=>HTTPResponseCodes::BadRequest['message'],
-            'data' => "",
+            'data' => [],
             ],HTTPResponseCodes::BadRequest['code']);
        
     }
@@ -321,11 +327,11 @@ public function register(RegisterRequest $request) {
   protected function getData(){
     
    $user= Auth::guard('api')->user();
-//print_r($user); exit;
+
     return  response()->json([
         'status' => HTTPResponseCodes::Sucess['status'],
         'message'=>HTTPResponseCodes::Sucess['message'],
-        'data' =>$user, //UserCollection::collection($user),
+        'data' =>new UserResource($user), //UserCollection::collection($user),
         ],HTTPResponseCodes::Sucess['code']);
   }
 }

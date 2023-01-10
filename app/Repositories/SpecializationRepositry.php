@@ -21,7 +21,7 @@ class SpecializationRepositry implements SpecializationInterface{
         $sortDirection ='asc'; 
         $result=Specialization::with(['consulations' => function ($query) use ($sortDirection) { 
                                             $query->with(['user']);
-                                            $query->with('service_type.service_type_fees');
+                                           // $query->with('service_type.service_type_fees');
                                             $query->orderBy('id', $sortDirection);
                                       }
                                       ,'specialization_translations'])->limit($limit)->get()->sortByDesc('consulations.created_at');//->toArray();

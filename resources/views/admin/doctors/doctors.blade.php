@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-{{__('trans.Doctors')}}
+{{__('Doctors')}}
 @endsection
 
 @section('content')
@@ -15,11 +15,14 @@
                                 <div class="page-title-box">
                                     <div class="page-title-right">
                                         <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">لوحة التحكم</a></li>
-                                            <li class="breadcrumb-item active">الاطباء</li>
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">{{__('dashboard')}}</a></li>
+                                            <li class="breadcrumb-item active">{{__('Doctors')}}</li>
                                         </ol>
                                     </div>
-                                    <h4 class="page-title">الاطباء</h4>
+                                    <h4 class="page-title">
+                                            {{__('Doctors')}}
+                                    
+                                    </h4>
                                 </div>
                             </div>
                         </div>
@@ -31,11 +34,11 @@
                                     <div class="card-body">
                                         <div class="row mb-2">
                                             <div class="col-sm-4">
-                                                <a href="add-doc.blade.php" class="btn btn-danger mb-2"><i class="mdi mdi-plus-circle me-2"></i> اضافة طبيب</a>
+                                                <a href="add-doc.blade.php" class="btn btn-danger mb-2"><i class="mdi mdi-plus-circle me-2"></i>{{__('add-doctor')}}</a>
                                             </div>
                                             <div class="col-sm-8">
                                                 <div class="text-sm-end">
-                                                    <button type="button" class="btn btn-light mb-2">تصدير</button>
+                                                    <button type="button" class="btn btn-light mb-2">{{__('export')}}</button>
                                                 </div>
                                             </div><!-- end col-->
                                         </div>
@@ -50,31 +53,32 @@
                                                                 <label class="form-check-label" for="customCheck1">&nbsp;</label>
                                                             </div>
                                                         </th>
-                                                        <th>اسم الدكتور</th>
-                                                        <th>التخصص</th>
-                                                        <th>رقم الهاتف</th>
-                                                        <th>عدد الاستشارات</th>
-                                                        <th>المكسب</th>
-                                                        <th>الحالة</th>
-                                                        <th>التفاصيل</th>
-                                                        <!-- <th style="width: 75px;">تفاصيل اخري</th> -->
+                                                        <th>{{__('doctor_name')}}</th>
+                                                        <th>{{__('specialize')}}th>
+                                                        <th>{{__('phone')}}</th>
+                                                        <th>{{__('consaltaion_count')}}</th>
+                                                        <th>{{__('earned')}}</th>
+                                                        <th>{{__('status')}}</th>
+                                                        <th>{{__('details')}}</th>
+                                                        <!-- <th style="width: 75px;">{{__('other_details')}}</th> -->
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                            @foreach($doctors as $doctor)
                                                     <tr>
                                                         <td>
                                                             <div class="form-check">
-                                                                <input type="checkbox" class="form-check-input" id="customCheck2">
+                                                                <input type="checkbox" class="form-check-input" id="customCheck">
                                                                 <label class="form-check-label" for="customCheck2"></label>
                                                             </div>
                                                         </td>
                                                         <td class="table-user">
                                                             <img src="{{asset('images/users/user-4.jpg')}}" alt="table-user" class="me-2 rounded-circle">
-                                                            <a href="javascript:void(0);" class="text-body fw-semibold">علا عبدو</a>
+                                                            <a href="javascript:void(0);" class="text-body fw-semibold">{{$doctor->name}}  {{$doctor->last_name}}</a>
                                                         </td>
-                                                        <td>طبيبة عامة</td>
+                                                        <td>{{$doctor->specialize->id}}</td>
                                                         <td>
-                                                            01154285418
+                                                            {{$doctor->phone}}
                                                         </td>
                                                         <td>
                                                             376
@@ -92,66 +96,7 @@
                                                         </td>
                                                     </tr>
 
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-check">
-                                                                <input type="checkbox" class="form-check-input" id="customCheck3">
-                                                                <label class="form-check-label" for="customCheck3">&nbsp;</label>
-                                                            </div>
-                                                        </td>
-                                                        <td class="table-user">
-                                                            <img src="{{asset('images/users/user-3.jpg')}}" alt="table-user" class="me-2 rounded-circle">
-                                                            <a href="javascript:void(0);" class="text-body fw-semibold">اشرف داود</a>
-                                                        </td>
-                                                        <td>
-                                                            جراحة
-                                                        </td>
-                                                        <td>
-                                                            0115428362
-                                                        </td>
-                                                        <td>
-                                                            220
-                                                        </td>
-                                                        <td>44$</td>
-                                                        <td>
-                                                            <span class="badge badge-soft-success">مفعل</span>
-                                                        </td>
-                                                        <td>
-                                                            <a  class="action-icon" data-bs-toggle="modal" data-bs-target="#con-close-modal"> <i class="mdi mdi-square-edit-outline"></i></a>
-                                                            <a  class="action-icon" data-bs-toggle="modal" data-bs-target="#danger-alert-modal"> <i class="mdi mdi-delete"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-check">
-                                                                <input type="checkbox" class="form-check-input" id="customCheck4">
-                                                                <label class="form-check-label" for="customCheck4">&nbsp;</label>
-                                                            </div>
-                                                        </td>
-                                                        <td class="table-user">
-                                                            <img src="{{asset('images/users/user-3.jpg')}}" alt="table-user" class="me-2 rounded-circle">
-                                                            <a href="javascript:void(0);" class="text-body fw-semibold">فاطمة محمد</a>
-                                                        </td>
-                                                        <td>
-                                                            عيون
-                                                        </td>
-                                                        <td>
-                                                            012654332
-                                                        </td>
-                                                        <td>
-                                                            841
-                                                        </td>
-                                                        <td>1999$
-                                                        <td>
-                                                            <span class="badge badge-soft-danger">ملغي</span>
-                                                        </td>
-
-                                                        <td>
-                                                            <a  class="action-icon" data-bs-toggle="modal" data-bs-target="#con-close-modal"> <i class="mdi mdi-square-edit-outline"></i></a>
-                                                            <a  class="action-icon" data-bs-toggle="modal" data-bs-target="#danger-alert-modal"> <i class="mdi mdi-delete"></i></a>
-                                                        </td>
-                                                    </tr>
-
+                                                @endforeach
 
 
 

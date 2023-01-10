@@ -139,10 +139,27 @@ class DoctorRepositories implements DoctorInterface{
  }
  public function remove_fav_Doctor($request){
 
-  $fav= new Fav_doctor;
-  $fav->doctor_id=$request['doctor_id'];
-  $fav->patient_id=$request['patient_id'];
-  $fav->delete();
+    $fav= new Fav_doctor;
+    $fav->doctor_id=$request['doctor_id'];
+    $fav->patient_id=$request['patient_id'];
+    $fav->delete();
+ }
+ public function countConsulate($status='accept'){
+
+ // echo $status_condition; exit;
+   $results=Consulation::select('doctor_id', DB::raw('count(`id`) as count_consulate'))
+                      ->where(function($query) use($status){
+                                if($status!="all"){
+                                    $query->where(['status'=>$status]);
+                                  }
+                       })->groupBy('doctor_id')->get()->toArray();
+     print_r($results); 
+    foreach($results as $result){
+      
+        $doctors[$result['doctor_id']]=$result['count_consulate'];
+      
+    }
+    print_r($doctors); exit;
  }
 
 }

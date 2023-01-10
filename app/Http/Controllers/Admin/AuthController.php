@@ -27,13 +27,13 @@ class AuthController extends Controller
     }
     public function postLogin(LoginRequest $request)
     {
-       
+
       
         $validated= $request->validated();
 
 
        if(Auth::guard('admin')->attempt($validated)) {
-            return redirect()->route('index');
+            return redirect()->route('admin.index');
         }
    
         

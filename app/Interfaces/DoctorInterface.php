@@ -10,5 +10,6 @@ interface DoctorInterface
  public function getFav($user_id);
  public function add_fav_Doctor($request);
  public function remove_fav_Doctor($request);
+ public  function countConsulate($status);
 
 }

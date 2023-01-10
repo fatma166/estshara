@@ -33,6 +33,7 @@ class DectorDetailsResource extends JsonResource
               'city_id'=>$this->city_id,
               'gender'=>$this->gender,
               'avatar'=>$this->avatar,
+              'phone'=>$this->phone,
               'instractions'=>$this->doctor_detail->instractions,
               'prices'=>$this->prices,
               'consulation_count'=>$this->consulation_count,

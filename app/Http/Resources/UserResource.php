@@ -18,12 +18,21 @@ class UserResource extends JsonResource
        return
        [    'id' => $this->id,
          //  'role_id' => RoleResource::collection($this->role_id),
-            'name' => $this->name,
-            'avatar' => $this->avatar,
-            'email' => $this->email,
-            'phone'=>$this->phone,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
+            'name' => $this->name??'',
+            'last_name' => $this->last_name??'',
+            'email' => $this->email??'',
+            'phone'=>$this->phone??'',
+            'city_id' => $this->city_id??'',
+            'birth_date'=>$this->birth_date??'',
+            'avatar'=>$this->	avatar??'',
+            'device_token'=>$this->	device_token??'',
+            'join_date'=>$this->join_date??'',
+            'device_info'=>$this->device_info??'',
+            'last_login'=>$this->last_login??'',
+            'online_flag'=>$this->online_flag??'',
+            'gender'=>$this->gender??'',
+            'token'=>$this->token??''
+
        ];
     }
 }

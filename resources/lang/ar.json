@@ -3,5 +3,7 @@
     "dashboard":"لوحة التحكم",
     "all-doctors":"كل الأطباء",
     "add-doctor":"اضافة طبيب",
-    "doctor-details":"تفاصيل الطبيب"
+    "doctor-details":"تفاصيل الطبيب",
+    "Doctors":"الأطباء" ,
+    "export":"تصدير"
 }
